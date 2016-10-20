@@ -29,7 +29,7 @@ public class LauncherCalculations extends OpMode {
         motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3");
         motorBr = hardwareMap.dcMotor.get("motor_4");
-        //launcher = hardwareMap.dcMotor.get("launcher")
+        launcher = hardwareMap.dcMotor.get("launcher");
 
     }
     public void init_loop() {
