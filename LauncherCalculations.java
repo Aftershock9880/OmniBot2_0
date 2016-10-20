@@ -14,19 +14,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class LauncherCalculations extends OpMode {
 
-    final double MOTOR_POWER = 0.5;
+    final double MOTOR_POWER = 1.0;
 
     DcMotor motorFl;
     DcMotor motorFr;
     DcMotor motorBl;
     DcMotor motorBr;
+    DcMotor launcher;
 
     public void init() {
 
+        //launcher is a placeholder until the motor exists in the app
         motorFl = hardwareMap.dcMotor.get("motor_1");
         motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3");
         motorBr = hardwareMap.dcMotor.get("motor_4");
+        //launcher = hardwareMap.dcMotor.get("launcher")
 
     }
     public void init_loop() {
@@ -36,15 +39,10 @@ public class LauncherCalculations extends OpMode {
 
     }
     public void loop() {
-        /*if(!gamepad1.a)
-            motorFl.setPower(0.5);
-        else
-            motorFl.setPower(0);
-        if(gamepad1.y && gamepad1.b)
-            motorFr.setPower(0.5);
-        else
-            motorFr.setPower(0);
-        int intKiloGrams = 10;
-        double i = Math.pow(z, 3) * 5;*/
+        if(gamepad1.a) {
+            launcher.setPower(MOTOR_POWER);
+        }
+        else launcher.setPower(0);
+
     }
 }
