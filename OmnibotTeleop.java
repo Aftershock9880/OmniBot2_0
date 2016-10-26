@@ -121,7 +121,7 @@ public class OmnibotTeleop extends OpMode {
 			//spinner.setPower(0.5);
 		}
 		else {
-			//spinner.setPower(0);
+			//spinner.setPower(0.0);
 		}
 		if(gamepad1.b) {
 
