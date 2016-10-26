@@ -34,6 +34,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "OmniBot Teleop", group = "Omnibot")
@@ -78,6 +79,8 @@ public class OmnibotTeleop extends OpMode {
 		motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3");
         motorBr = hardwareMap.dcMotor.get("motor_4");
+		motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
+		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
 		//spinner = hardwareMap.dcMotor.get("motor_5");
 
 	}
@@ -94,17 +97,24 @@ public class OmnibotTeleop extends OpMode {
 		 * Gamepad 1 controls the motors via the left stick
 		 */
 
-        // note that if y equal -1 then joystick is pushed all of the way forward.
-		motorFl.setPower(gamepad1.left_stick_y/*+ -gamepad1.left_stick_x*/);
-		motorFr.setPower(-gamepad1.left_stick_y/*+ -gamepad1.left_stick_x*/);
-		motorBl.setPower(gamepad1.left_stick_y/*+ -gamepad1.left_stick_x*/);
-		motorBr.setPower(-gamepad1.left_stick_y/*+ -gamepad1.left_stick_x*/);
-
+		// note that if y equal -1 then joystick is pushed all of the way forward.
+		if(!gamepad1.b && !gamepad1.x) {
+			motorFl.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x);
+			motorFr.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x);
+			motorBl.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x);
+			motorBr.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x);
+		}
 		if(gamepad1.x){
 			motorFl.setPower(-0.5);
 			motorFr.setPower(0.5);
 			motorBl.setPower(-0.5);
 			motorBr.setPower(0.5);
+		}
+		if(gamepad1.b){
+			motorFl.setPower(0.5);
+			motorFr.setPower(-0.5);
+			motorBl.setPower(0.5);
+			motorBr.setPower(-0.5);
 		}
 
 		if(gamepad1.right_bumper){
@@ -113,13 +123,11 @@ public class OmnibotTeleop extends OpMode {
 		else {
 			//spinner.setPower(0);
 		}
-		if(gamepad1.b)
-		{
-		//noodleServo.
+		if(gamepad1.b) {
+
 		}
-		if(gamepad1.a)
-		{
-		//noodleServo.
+		if(gamepad1.a) {
+
 		}
 
 		/*
