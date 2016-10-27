@@ -25,7 +25,7 @@ public class LauncherCalculations extends OpMode {
 
     public void init() {
 
-        //launcher is a placeholder until the motor exists in the app
+        //launcher is a placeholder until the launcher motor exists in the app
         motorFl = hardwareMap.dcMotor.get("motor_1");
         motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3");
@@ -40,11 +40,10 @@ public class LauncherCalculations extends OpMode {
 
     }
     public void loop() {
-        if(gamepad1.a) {
+        if(gamepad2.a) {
             launcher.setPower(MOTOR_POWER);
         }
         else launcher.setPower(0);
-
 
     }
 }

@@ -81,15 +81,11 @@ public class OmnibotTeleop extends OpMode {
         motorBr = hardwareMap.dcMotor.get("motor_4");
 		motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
 		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
+
 		//spinner = hardwareMap.dcMotor.get("motor_5");
 
 	}
 
-	/*
-	 * This method will be called repeatedly in a loop
-	 *
-	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#run()
-	 */
 	@Override
 	public void loop() {
 
@@ -98,24 +94,23 @@ public class OmnibotTeleop extends OpMode {
 		 */
 
 		// note that if y equal -1 then joystick is pushed all of the way forward.
-		if(!gamepad1.b && !gamepad1.x) {
+		if(gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x > 0.001) {
 			motorFl.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x);
 			motorFr.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x);
 			motorBl.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x);
 			motorBr.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x);
 		}
-		if(gamepad1.x){
-			motorFl.setPower(-0.5);
-			motorFr.setPower(0.5);
-			motorBl.setPower(-0.5);
-			motorBr.setPower(0.5);
-		}
-		if(gamepad1.b){
-			motorFl.setPower(0.5);
-			motorFr.setPower(-0.5);
-			motorBl.setPower(0.5);
-			motorBr.setPower(-0.5);
-		}
+
+		motorFl.setPower(gamepad1.right_stick_x);
+		motorFr.setPower(-gamepad1.right_stick_x);
+		motorBl.setPower(gamepad1.right_stick_x);
+		motorBr.setPower(-gamepad1.right_stick_x);
+
+		motorFl.setPower(-gamepad1.right_stick_x);
+		motorFr.setPower(gamepad1.right_stick_x);
+		motorBl.setPower(-gamepad1.right_stick_x);
+		motorBr.setPower(gamepad1.right_stick_x);
+
 
 		if(gamepad1.right_bumper){
 			//spinner.setPower(0.5);
