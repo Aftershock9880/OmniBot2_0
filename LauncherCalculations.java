@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class LauncherCalculations extends OpMode {
 
-    final double MOTOR_POWER = 1.0;
+    final double MOTOR_POWER = 0.5;
 
     DcMotor motorFl;
     DcMotor motorFr;

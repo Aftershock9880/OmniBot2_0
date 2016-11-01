@@ -47,6 +47,7 @@ public class OmnibotTeleop extends OpMode {
     DcMotor motorBl;
     DcMotor motorBr;
 	DcMotor spinner;
+	//DcMotor launcher;
 
 	/**
 	 * Constructor
@@ -119,10 +120,10 @@ public class OmnibotTeleop extends OpMode {
 			//spinner.setPower(0.0);
 		}
 		if(gamepad1.b) {
-
+		//launcher.setPower(1);
 		}
 		if(gamepad1.a) {
-
+		//launcher.setPower(-1);
 		}
 
 		/*
