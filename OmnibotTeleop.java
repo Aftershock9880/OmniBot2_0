@@ -46,7 +46,7 @@ public class OmnibotTeleop extends OpMode {
     DcMotor motorFr;
     DcMotor motorBl;
     DcMotor motorBr;
-	DcMotor spinner;
+	//commented ohhhDcMotor spinner;
 
 	/**
 	 * Constructor
