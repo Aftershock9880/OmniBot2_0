@@ -41,7 +41,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 //@Disabled
 public class OmnibotTeleop extends OpMode {
 
-	int testVar = 2;
     DcMotor motorFl;
     DcMotor motorFr;
     DcMotor motorBl;
