@@ -48,6 +48,11 @@ public class OmnibotTeleop extends OpMode {
 	//DcMotor spinner;
 	//DcMotor launcher;
 
+	float Flpower;
+	float Frpower;
+	float Blpower;
+	float Brpower;
+
 	/**
 	 * Constructor
 	 */
@@ -84,6 +89,8 @@ public class OmnibotTeleop extends OpMode {
 
 		//spinner = hardwareMap.dcMotor.get("motor_5");
 
+
+
 	}
 
 	@Override
@@ -94,22 +101,21 @@ public class OmnibotTeleop extends OpMode {
 		 */
 
 		// note that if y equal -1 then joystick is pushed all of the way forward.
-		if(gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x > 0.001) {
-			motorFl.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x);
-			motorFr.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x);
-			motorBl.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x);
-			motorBr.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x);
-		}
 
-		motorFl.setPower(gamepad1.right_stick_x);
-		motorFr.setPower(-gamepad1.right_stick_x);
-		motorBl.setPower(gamepad1.right_stick_x);
-		motorBr.setPower(-gamepad1.right_stick_x);
+		Flpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
+		Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
+		Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
+		Brpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
 
-		motorFl.setPower(-gamepad1.right_stick_x);
-		motorFr.setPower(gamepad1.right_stick_x);
-		motorBl.setPower(-gamepad1.right_stick_x);
-		motorBr.setPower(gamepad1.right_stick_x);
+		Flpower = gamepad1.right_stick_x;
+		Frpower = -gamepad1.right_stick_x;
+		Blpower = gamepad1.right_stick_x;
+		Brpower = -gamepad1.right_stick_x;
+
+		motorFl.setPower(Flpower);
+		motorFr.setPower(Frpower);
+		motorBl.setPower(Blpower);
+		motorBr.setPower(Brpower);
 
 
 		if(gamepad1.right_bumper){
