@@ -45,7 +45,9 @@ public class OmnibotTeleop extends OpMode {
     DcMotor motorFr;
     DcMotor motorBl;
     DcMotor motorBr;
+
 	//DcMotor spinner;
+
 	//DcMotor launcher1;
 	//DcMotor launcher2;
 
@@ -54,15 +56,10 @@ public class OmnibotTeleop extends OpMode {
 	float Blpower;
 	float Brpower;
 
-	public OmnibotTeleop() {
 
-	}
 
-	/*
-	 * Code to run when the op mode is first enabled goes here
-	 *
-	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
-	 */
+	public OmnibotTeleop() {}
+
 	@Override
 	public void init() {
 		/*
@@ -86,6 +83,7 @@ public class OmnibotTeleop extends OpMode {
 		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
 
 		//spinner = hardwareMap.dcMotor.get("motor_5");
+
 		//launcher1 = hardwareMap.dcMotor.get("motor_5");
 		//launcher2 = hardwareMap.dcMotor.get("motor_5");
 	}
