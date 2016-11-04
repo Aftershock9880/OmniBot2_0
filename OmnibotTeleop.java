@@ -46,16 +46,14 @@ public class OmnibotTeleop extends OpMode {
     DcMotor motorBl;
     DcMotor motorBr;
 	//DcMotor spinner;
-	//DcMotor launcher;
+	//DcMotor launcher1;
+	//DcMotor launcher2;
 
 	float Flpower;
 	float Frpower;
 	float Blpower;
 	float Brpower;
 
-	/**
-	 * Constructor
-	 */
 	public OmnibotTeleop() {
 
 	}
@@ -88,32 +86,31 @@ public class OmnibotTeleop extends OpMode {
 		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
 
 		//spinner = hardwareMap.dcMotor.get("motor_5");
-
-
-
+		//launcher1 = hardwareMap.dcMotor.get("motor_5");
+		//launcher2 = hardwareMap.dcMotor.get("motor_5");
 	}
-
 	@Override
 	public void loop() {
 
 		/*
-		 * Gamepad 1 controls the motors via the left stick
+		 * Gamepad 1 controls the movement via the left stick and turnig via the right stick
+		 *
 		 */
 
 		// note that if y equal -1 then joystick is pushed all of the way forward.
 
-		//if (-gamepad1.right_stick_x < gamepad1.right_stick_x|| gamepad1.right_stick_x > 0.01) {
-		//	Flpower = gamepad1.right_stick_x;
-		//	Frpower = -gamepad1.right_stick_x;
-		//	Blpower = gamepad1.right_stick_x;
-		//	Brpower = -gamepad1.right_stick_x;
-		//}
-		//else {
-		//	Flpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
-		//	Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
-		//	Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
-		//	Brpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
-		//}
+		if (gamepad1.right_stick_x < -0.01|| gamepad1.right_stick_x > 0.01) {
+			Flpower = gamepad1.right_stick_x;
+			Frpower = -gamepad1.right_stick_x;
+			Blpower = gamepad1.right_stick_x;
+			Brpower = -gamepad1.right_stick_x;
+		}
+		else {
+			Flpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
+			Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
+			Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
+			Brpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
+		}
 
 		motorFl.setPower(Flpower);
 		motorFr.setPower(Frpower);
@@ -128,36 +125,17 @@ public class OmnibotTeleop extends OpMode {
 			//spinner.setPower(0.0);
 		}
 		if(gamepad1.b) {
-		//launcher.setPower(1);
+			//launcher1.setPower(1);
+			//launcher2.setPower(1);
 		}
 		if(gamepad1.a) {
-		//launcher.setPower(-1);
+			//launcher1.setPower(-1);
+			//launcher2.setPower(-1);
 		}
 
-		/*
-		 * Send telemetry data back to driver station. Note that if we are using
-		 * a legacy NXT-compatible motor controller, then the getPower() method
-		 * will return a null value. The legacy NXT-compatible motor controllers
-		 * are currently write only.
-		 */
-		/*
-		telemetry.addData("left tgt pwr", "left pwr: ");
-		telemetry.addData("right tgt pwr", "right pwr: ");
-        telemetry.addData("front tgt pwr", "front pwr: ");
-        telemetry.addData("back tgt pwr", "back pwr: ");
-		*/
+		//Send telemetry data back to driver station.
 		telemetry.addData("stick X: ", -gamepad1.left_stick_x);
 		telemetry.addData("stick Y: ", -gamepad1.left_stick_y);
-
-	}
-
-	/*
-	 * Code to run when the op mode is first disabled goes here
-	 *
-	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
-	 */
-	@Override
-	public void stop() {
 
 	}
 }
