@@ -1,46 +1,65 @@
 package org.firstinspires.ftc.teamcode;
 
+//Import all the things
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;          
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 //import com.qualcomm.robotcore.hardware.Servo;
 
+
+//I don't know what this does. Ask Oliver or Halil
 @Autonomous(name = "EthanAutonomous2", group = "Omnibot")
+
+
 
 public class EthanAutonomous2 extends OpMode {
 
+    //Define all the motors
     DcMotor motorFl;
     DcMotor motorFr;
     DcMotor motorBl;
     DcMotor motorBr;
 
+    //I don't know what this is, someone else must have added this. 
     float Flpower;
     float Frpower;
     float Blpower;
     float Brpower;
 
+    //What? I think this is the map, but this is weird.
     int[] num = {1,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1};
 
-    static int y = 0;
-    static int x = 0;
+    //Defines the x and y vars of robot
+    static int y = 0;  
+    static int x = 0;  
 
+    
+    
+    //Parser x and parser y? I don't know that these are ever used.
     int parX = 0;
     int parY = 0;
 
+    
+    //This is for the translator function.
     int translatedX = 0;
     int translatedY = 0;
 
+    //Particle launcher angle
     double PARTLAUNCHANG = 0;
 
+    //Wait, if this is the location of the robot, what are just x and y?
     int myX = 1;
     int myY = 1;
 
+    //Reverse translator
     int revTranslateX = 0;
     int revTranslateY = 0;
     int cloneOfPointOnLineForRevTranslate;
 
+    //Return thing?
+    
     int inDirMyX = 0;
     int inDirMyY = 0;
 
@@ -58,8 +77,9 @@ public class EthanAutonomous2 extends OpMode {
 
         //Very long variable name!
 }
-            //g
-    public void driveTo(int driveToX, int driveToY){
+            //
+    //This part actually turns the motors and tells the robot to drive to a certain place.
+    public void driveTo(int driveToX, int driveToY){ //Oh! Someone added all the motor code!
 
         if(driveToY > myY){
 
@@ -95,7 +115,8 @@ public class EthanAutonomous2 extends OpMode {
         }
     }
 
-
+   
+    //Evaluates map element in given direction and distance.
     public static int inDir(int inDirection,int distance, int inDirMyX,int inDirMyY){
         if(inDirection == 1){
             return(translate(inDirMyX,(inDirMyY+distance)));}
@@ -108,6 +129,7 @@ public class EthanAutonomous2 extends OpMode {
         return inDirection;
     }
 
+    //Changes the angle of the particle launcher, once that actually gets working.
     public void raiseParticleLauncher(double toHeight){
 
 
@@ -121,7 +143,7 @@ public class EthanAutonomous2 extends OpMode {
             //Fire the particle!
         }
     }
-
+        //Turns a point on the line into X and Y values
         public void revTranslate(int pointOnLine){
               cloneOfPointOnLineForRevTranslate = pointOnLine;
             if(pointOnLine % 5 != 0){ //If 5 (width of the map) divides evenly into the pointOnLine
@@ -133,14 +155,15 @@ public class EthanAutonomous2 extends OpMode {
 
             }
         }
+        //Turns an X and Y value into a point on the line.
         public static int translate(int translateX, int translateY){
 
 
             return x+(5*y);
         }
 
-    @Override
-    public void loop() {
+    @Override //I don't know what this is.
+    public void loop() { 
 
     }
 }
