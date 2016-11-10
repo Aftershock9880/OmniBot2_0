@@ -22,13 +22,13 @@ public class EthanAutonomous2 extends OpMode {
     DcMotor motorBl;
     DcMotor motorBr;
 
-    //I don't know what this is, someone else must have added this. 
+    //This probably defines the variables for motor values 
     float Flpower;
     float Frpower;
     float Blpower;
     float Brpower;
 
-    //What? I think this is the map, but this is weird.
+    //Internal map, each 5 characters is a line break
     int[] num = {1,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1};
 
     //Defines the x and y vars of robot
@@ -66,6 +66,7 @@ public class EthanAutonomous2 extends OpMode {
 
     @Override
     public void init() {
+        //Define motors as hardwareMaps
         motorFl = hardwareMap.dcMotor.get("motor_1");
         motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3");
@@ -80,6 +81,8 @@ public class EthanAutonomous2 extends OpMode {
             //
     //This part actually turns the motors and tells the robot to drive to a certain place.
     public void driveTo(int driveToX, int driveToY){ //Oh! Someone added all the motor code!
+      
+      while(driveToY != myY && driveToX != myX){
 
         if(driveToY > myY){
 
@@ -98,6 +101,7 @@ public class EthanAutonomous2 extends OpMode {
                 //move right
                 myX ++;
             }
+        }
 
             if (driveToY < myY) {
 
@@ -114,6 +118,7 @@ public class EthanAutonomous2 extends OpMode {
             }
         }
     }
+  }
 
    
     //Evaluates map element in given direction and distance.
@@ -167,3 +172,27 @@ public class EthanAutonomous2 extends OpMode {
 
     }
 }
+
+/*
+
+myY = 1
+myX = 1
+
+
+driveTo(3,8)
+
+>Repeats evaluation of driveTo conditions, eventually drives to location
+
+
+*/ 
+
+
+
+
+
+
+
+
+
+
+
