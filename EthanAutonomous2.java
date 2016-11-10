@@ -136,7 +136,7 @@ public class EthanAutonomous2 extends OpMode {
 
     //Changes the angle of the particle launcher, once that actually gets working.
     public void raiseParticleLauncher(double toHeight){
-
+      while(PARTLAUNCHANG != toHeight){
 
         if(PARTLAUNCHANG < toHeight){
             //Send power to servos, lower.
@@ -147,6 +147,7 @@ public class EthanAutonomous2 extends OpMode {
         else{
             //Fire the particle!
         }
+      }
     }
         //Turns a point on the line into X and Y values
         public void revTranslate(int pointOnLine){
