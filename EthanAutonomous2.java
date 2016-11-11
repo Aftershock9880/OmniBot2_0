@@ -35,8 +35,8 @@ public class EthanAutonomous2 extends OpMode {
     static int y = 0;  
     static int x = 0;  
 
-    double joystickY = 0;
-    double joystickX = 0;
+    float joystickY = 0;
+    float joystickX = 0;
     
     //Parser x and parser y? I don't know that these are ever used.
     int parX = 0;
@@ -88,21 +88,21 @@ public class EthanAutonomous2 extends OpMode {
         if(driveToY > myY){
 
             if(!(driveToY == myY && !(inDir(1, 1, myY, myX) == 1))){
-                  joystickY = -1          // Virtual joystick, because I'm copying Oliver's code
+                  joystickY = -1;          // Virtual joystick, because I'm copying Oliver's code
                   try {                   //Pause for one second
                     Thread.sleep(1000);                 //1000 milliseconds is one second.
                   } 
                   catch(InterruptedException ex) {
                     Thread.currentThread().interrupt();
                   }
-                myY = myY-1
+                myY = myY-1;
             }
         }
         if(driveToX > myX) {
 
 
             if (!(driveToX == myX) && !(inDir(2, 1, myX, myY) == 1)) {
-              joystickX = -1
+              joystickX = -1;
               try {
                 Thread.sleep(1000);                 //1000 milliseconds is one second.
               } 
@@ -117,7 +117,7 @@ public class EthanAutonomous2 extends OpMode {
         if (driveToY < myY) {
 
                 if (!(driveToY == myY) && !(inDir(3, 1, myX, myY) == 1)) {
-                  joystickY = 1
+                  joystickY = 1;
                   try {
                     Thread.sleep(1000);                 //1000 milliseconds is one second.
                   } 
@@ -141,15 +141,15 @@ public class EthanAutonomous2 extends OpMode {
             }
 
 
-        Flpower = joystickY
-      	Frpower = joystickY  //Actually defines the motor powers (Crazy, I know!)
-      	Blpower = joystickX
-      	Brpower = joystickX  //I don't know why I did this, these are wrong. Pls help. -Ethan
+        Flpower = joystickY;
+      	Frpower = joystickY;  //Actually defines the motor powers (Crazy, I know!)
+      	Blpower = joystickX;
+      	Brpower = joystickX;  //I don't know why I did this, these are wrong. Pls help. -Ethan
 
 
       }
     }
-  }
+
 
    
     //Evaluates map element in given direction and distance.
