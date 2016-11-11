@@ -56,7 +56,7 @@ public class OmnibotTeleop extends OpMode {
 	float Blpower;
 	float Brpower;
 
-
+	int powerDivider; //Divide power by this much
 
 	public OmnibotTeleop() {}
 
@@ -89,14 +89,15 @@ public class OmnibotTeleop extends OpMode {
 	}
 	@Override
 	public void loop() {
-
-		/*
-		 * Gamepad 1 controls the movement via the left stick and turnig via the right stick
-		 *
-		 */
-
+        // Gamepad 1 controls the movement via the left stick and turning via the right stick
 		// note that if y equal -1 then joystick is pushed all of the way forward.
 
+		if (gamepad1.dpad_up){ //If you press the up d-pad, change sensitivity
+			powerDivider = powerDivider + 1;
+		}
+		if (gamepad1.dpad_down) {
+			powerDivider = powerDivider - 1;
+		}
 		if (gamepad1.right_stick_x < -0.01|| gamepad1.right_stick_x > 0.01) {
 			Flpower = gamepad1.right_stick_x;
 			Frpower = -gamepad1.right_stick_x;
@@ -109,12 +110,13 @@ public class OmnibotTeleop extends OpMode {
 			Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
 			Brpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
 		}
-
-		motorFl.setPower(Flpower);
-		motorFr.setPower(Frpower);
-		motorBl.setPower(Blpower);
-		motorBr.setPower(Brpower);
-
+		if(powerDivider <= 0){
+			powerDivider = 1;
+		}
+		motorFl.setPower(Flpower/powerDivider);
+		motorFr.setPower(Frpower/powerDivider);
+		motorBl.setPower(Blpower/powerDivider);
+		motorBr.setPower(Brpower/powerDivider);
 
 		if(gamepad1.right_bumper){
 			//spinner.setPower(0.5);
