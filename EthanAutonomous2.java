@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 //Import all the things
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;          
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -9,10 +10,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.hardware.Servo;
 
 
-//I don't know what this does. Ask Oliver or Halil
+//registers in driver station
 @Autonomous(name = "EthanAutonomous2", group = "Omnibot")
-
-
+@Disabled
 
 public class EthanAutonomous2 extends OpMode {
 
@@ -150,7 +150,7 @@ public class EthanAutonomous2 extends OpMode {
       }
     }
 
-
+int powerDivider; //Divide power by this much
    
     //Evaluates map element in given direction and distance.
     public static int inDir(int inDirection,int distance, int inDirMyX,int inDirMyY){
