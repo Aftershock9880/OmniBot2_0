@@ -95,9 +95,11 @@ public class OmnibotTeleop extends OpMode {
 		if (gamepad1.dpad_up){ //If you press the up d-pad, change sensitivity
 			powerDivider = powerDivider + 0.001;
 		}
+
 		if (gamepad1.dpad_down) {
 			powerDivider = powerDivider - 0.001;
 		}
+
 		if (gamepad1.right_stick_x < -0.01|| gamepad1.right_stick_x > 0.01) {
 			Flpower = gamepad1.right_stick_x;
 			Frpower = -gamepad1.right_stick_x;
