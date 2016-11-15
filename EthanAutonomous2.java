@@ -63,7 +63,7 @@ public class EthanAutonomous2 extends OpMode {
 
     @Override
     public void init() {
-        //Define motors as hardwareMaps
+        //Define motors
         motorFl = hardwareMap.dcMotor.get("motor_1");
         motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3");
@@ -212,24 +212,15 @@ int powerDivider; //Divide power by this much
         }
 
     @Override
-    public void loop() { 
+    public void loop() {
 
+        myY = 1;
+        myX = 1;
+
+
+        driveTo(3,8);
     }
 }
-
-/*
-
-myY = 1
-myX = 1
-
-
-driveTo(3,8)
-
->Repeats evaluation of driveTo conditions, eventually drives to location
-
-
-*/ 
-
 
 
 
