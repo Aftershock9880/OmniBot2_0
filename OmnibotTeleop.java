@@ -56,7 +56,7 @@ public class OmnibotTeleop extends OpMode {
 	float Blpower;
 	float Brpower;
 
-	int powerDivider; //Divide power by this much
+	double powerDivider; //Divide power by this much
 
 	public OmnibotTeleop() {}
 
@@ -93,10 +93,10 @@ public class OmnibotTeleop extends OpMode {
 		// note that if y equal -1 then joystick is pushed all of the way forward.
 
 		if (gamepad1.dpad_up){ //If you press the up d-pad, change sensitivity
-			powerDivider = powerDivider + 1;
+			powerDivider = powerDivider + 0.001;
 		}
 		if (gamepad1.dpad_down) {
-			powerDivider = powerDivider - 1;
+			powerDivider = powerDivider - 0.001;
 		}
 		if (gamepad1.right_stick_x < -0.01|| gamepad1.right_stick_x > 0.01) {
 			Flpower = gamepad1.right_stick_x;

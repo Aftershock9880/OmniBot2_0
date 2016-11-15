@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.hardware.Servo;
 
 //registers in driver station
-@Autonomous(name = "EthanAutonomous2", group = "Omnibot")
+@Autonomous(name = "Ethan Autonomous", group = "Omnibot")
 @Disabled
 
 public class EthanAutonomous2 extends OpMode {
@@ -30,19 +30,19 @@ public class EthanAutonomous2 extends OpMode {
     int[] num = {1,1,1,1,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1};
 
     //Defines the x and y vars of robot
-    int y = 0;
-    int x = 0;
+   // int y = 0;
+   // int x = 0;
 
     float joystickY = 0;
     float joystickX = 0;
     
     //Parser x and parser y? I don't know that these are ever used.
-    int parX = 0;
-    int parY = 0;
+   // int parX = 0;
+   // int parY = 0;
 
     //This is for the translator function.
-    int translatedX = 0;
-    int translatedY = 0;
+    // int translatedX = 0;
+    // int translatedY = 0;
 
     //Particle launcher angle
     double PARTLAUNCHANG = 0;
@@ -58,8 +58,8 @@ public class EthanAutonomous2 extends OpMode {
 
     //Return thing?
     
-    int inDirMyX = 0;
-    int inDirMyY = 0;
+   // int inDirMyX = 0;
+   // int inDirMyY = 0;
 
     @Override
     public void init() {
@@ -80,7 +80,8 @@ public class EthanAutonomous2 extends OpMode {
             if(driveToY > myY){
 
                 if(!(driveToY == myY && !(inDir(1, 1, myY, myX) == 1))){
-                    joystickY = -1;          // Virtual joystick, because I'm copying Oliver's code
+
+                    joystickY = 1;          // Virtual joystick, because I'm copying Oliver's code
 
                     try {                   //Pause for one second
                         Thread.sleep(1000);                 //1000 milliseconds is one second.
@@ -141,11 +142,11 @@ public class EthanAutonomous2 extends OpMode {
                     }
                 }
             }
-
-            Flpower = joystickY;
-            Frpower = joystickY;  //Actually defines the motor powers (Crazy, I know!)
-            Blpower = joystickX;
-            Brpower = joystickX;  //I don't know why I did this, these are wrong. Pls help. -Ethan
+            //Copy
+            Flpower = joystickY + -joystickX;
+            Frpower = joystickY + joystickX;
+            Blpower = joystickY + joystickX;
+            Brpower = joystickY + -joystickX;
 
         }
     }
