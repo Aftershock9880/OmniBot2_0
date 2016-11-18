@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "OmniBot Teleop", group = "Omnibot")
 //@Disabled
@@ -18,6 +19,8 @@ public class OmnibotTeleop extends OpMode {
 
 	CRServo spinner;
 
+    CRServo button;
+
 	//DcMotor launcher1;
 	//DcMotor launcher2;
 
@@ -28,7 +31,7 @@ public class OmnibotTeleop extends OpMode {
 
 	double powerDivider; //Divide power by this much
 
-	public OmnibotTeleop() {}
+    ElapsedTime runtime = new ElapsedTime();
 
 	@Override
 	public void init() {
@@ -53,11 +56,19 @@ public class OmnibotTeleop extends OpMode {
 		motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
 		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
 
-		spinner = hardwareMap.crservo.get("servo_5");
+		spinner = hardwareMap.crservo.get("servo_1");
+
+        button = hardwareMap.crservo.get("servo_2");
 
 		//launcher1 = hardwareMap.dcMotor.get("motor_5");
 		//launcher2 = hardwareMap.dcMotor.get("motor_6");
 	}
+
+    @Override
+    public void start() {
+        runtime.reset();
+    }
+
 	@Override
 	public void loop() {
         // Gamepad 1 controls the movement via the left stick and turning via the right stick
@@ -96,11 +107,19 @@ public class OmnibotTeleop extends OpMode {
 		if(gamepad1.right_bumper){
             spinner.setPower(1);
 		}
-		else if(gamepad1.right_bumper){
+		else if(gamepad1.left_bumper){
             spinner.setPower(-1);
         }
         else {
             spinner.setPower(0);
+        }
+
+        if(gamepad1.a) {
+            button.setPower(1);
+            runtime.reset();
+        }
+        if (runtime.time() > 2){
+            button.setPower(0);
         }
 
         if(gamepad1.b) {
@@ -115,7 +134,7 @@ public class OmnibotTeleop extends OpMode {
 		//Send telemetry data back to driver station.
 		telemetry.addData("stick X: ", -gamepad1.left_stick_x);
 		telemetry.addData("stick Y: ", -gamepad1.left_stick_y);
-		telemetry.addData("power divider:" powerDivider	)
+		telemetry.addData("power divider:", powerDivider	);
         //telemetry.addData("Power Divider: ", powerDivider);
 	}
 }
