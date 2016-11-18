@@ -115,6 +115,7 @@ public class OmnibotTeleop extends OpMode {
 		//Send telemetry data back to driver station.
 		telemetry.addData("stick X: ", -gamepad1.left_stick_x);
 		telemetry.addData("stick Y: ", -gamepad1.left_stick_y);
+		telemetry.addData("power divider:" powerDivider	)
         //telemetry.addData("Power Divider: ", powerDivider);
 	}
 }
