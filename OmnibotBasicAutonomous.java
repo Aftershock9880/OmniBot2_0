@@ -57,7 +57,7 @@ public class OmnibotBasicAutonomous extends OpMode {
         // Gamepad 1 controls the movement via the left stick and turning via the right stick
         // note that if y equal -1 then joystick is pushed all of the way forward.
 
-        if (runtime.time() < 4){
+        if (runtime.time() < 3.5){
         	motorFl.setPower(1);
         	motorFr.setPower(1);
         	motorBl.setPower(1);

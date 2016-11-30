@@ -17,7 +17,7 @@ public class OmnibotTeleop extends OpMode {
     DcMotor motorBl;
     DcMotor motorBr;
 
-	CRServo spinner;
+	CRServo sweeper;
 
     CRServo button;
 
@@ -48,6 +48,7 @@ public class OmnibotTeleop extends OpMode {
 		 *   "motor_3" is on the front side of the bot.
 		 *   "motor_4" is on the back side of the bot.
 		 */
+        powerDivider = 1;
 
         motorFl = hardwareMap.dcMotor.get("motor_1");
 		motorFr = hardwareMap.dcMotor.get("motor_2");
@@ -56,12 +57,12 @@ public class OmnibotTeleop extends OpMode {
 		motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
 		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
 
-		spinner = hardwareMap.crservo.get("servo_1");
-
-        button = hardwareMap.crservo.get("servo_2");
-
 		//launcher1 = hardwareMap.dcMotor.get("motor_5");
 		//launcher2 = hardwareMap.dcMotor.get("motor_6");
+
+        sweeper = hardwareMap.crservo.get("servo_1");
+
+        button = hardwareMap.crservo.get("servo_2");
 	}
 
     @Override
@@ -97,28 +98,32 @@ public class OmnibotTeleop extends OpMode {
 			Brpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
 		}
 		if(powerDivider <= 0){
-			powerDivider = 1;
+			powerDivider = 0.001;
 		}
 		motorFl.setPower(Flpower /*/powerDivider*/);
 		motorFr.setPower(Frpower /*/powerDivider*/);
 		motorBl.setPower(Blpower /*/powerDivider*/);
 		motorBr.setPower(Brpower /*/powerDivider*/);
 
+        //sweeper code
 		if(gamepad1.right_bumper){
-            spinner.setPower(1);
+            sweeper.setPower(1);
 		}
 		else if(gamepad1.left_bumper){
-            spinner.setPower(-1);
+            sweeper.setPower(-1);
         }
         else {
-            spinner.setPower(0);
+            sweeper.setPower(0);
         }
 
-        if(gamepad1.a) {
+        //button pusher code
+        if(gamepad1.y) {
             button.setPower(1);
-            runtime.reset();
         }
-        if (runtime.time() > 2){
+        else if (gamepad1.a){
+            button.setPower(-1);
+        }
+        else {
             button.setPower(0);
         }
 

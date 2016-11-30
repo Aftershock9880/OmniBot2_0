@@ -33,9 +33,6 @@ public class EthanAutonomous2 extends OpMode {
    // int y = 0;
    // int x = 0;
 
-    float joystickY = 0;
-    float joystickX = 0;
-    
     //Parser x and parser y? I don't know that these are ever used.
    // int parX = 0;
    // int parY = 0;
@@ -70,60 +67,40 @@ public class EthanAutonomous2 extends OpMode {
         motorBr = hardwareMap.dcMotor.get("motor_4");
         motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        motorBl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorBr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorFl.setMode(DcMotor.RunMode.RUN_TO_POSITION); //Sets all motors to use wheel encoders
+        motorFr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
 
     //This part actually turns the motors and tells the robot to drive to a certain place.
-    public void driveTo(int driveToX, int driveToY){ //Oh! Someone added all the motor code!
+    public void driveTo(int driveToX, int driveToY){
       
         while(driveToY != myY && driveToX != myX){
 
             if(driveToY > myY){
 
                 if(!(driveToY == myY && !(inDir(1, 1, myY, myX) == 1))){
-
-                    joystickY = 1;          // Virtual joystick, because I'm copying Oliver's code
-
-                    try {                   //Pause for one second
-                        Thread.sleep(1000);                 //1000 milliseconds is one second.
-                    }
-
-                    catch(InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
-                    myY = myY-1;
+                    motorBr.setTargetPosition(myY+1); //Change based on hardware specs
+                    motorBl.
+                    myY = myY+1;
                 }
             }
 
             if(driveToX > myX) {
 
                 if (!(driveToX == myX) && !(inDir(2, 1, myX, myY) == 1)) {
-                    joystickX = -1;
-
-                    try {
-                        Thread.sleep(1000);                 //1000 milliseconds is one second.
-                    }
-
-                    catch(InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
-                    //move right
-                    myX = myX -1;
+                    motorFr.setTargetPosition(myX + 1);
+                    myX = myX +1;
                 }
             }
 
             if (driveToY < myY) {
 
                 if (!(driveToY == myY) && !(inDir(3, 1, myX, myY) == 1)) {
-                    joystickY = 1;
-
-                    try {
-                        Thread.sleep(1000);                 //1000 milliseconds is one second.
-                    }
-
-                    catch(InterruptedException ex) {
-                        Thread.currentThread().interrupt();
-                    }
-
+                    motorFl.setTargetPosition(myY -1);
                     myY = myY - 1;
 
                 }
@@ -132,21 +109,10 @@ public class EthanAutonomous2 extends OpMode {
             if (driveToX < myX) {
 
                 if (!(driveToX == myX) && !(inDir(4, 1, myX, myY) == 1)){
-
-                    try {
-                      Thread.sleep(1000);                 //1000 milliseconds is one second.
-                    }
-
-                    catch(InterruptedException ex) {
-                      Thread.currentThread().interrupt();
-                    }
+                    motorBl.setTargetPosition(myX-1);
                 }
             }
             //Copy
-            Flpower = joystickY + -joystickX;
-            Frpower = joystickY + joystickX;
-            Blpower = joystickY + joystickX;
-            Brpower = joystickY + -joystickX;
 
         }
     }
