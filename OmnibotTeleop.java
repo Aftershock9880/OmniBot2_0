@@ -2,9 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -17,21 +19,24 @@ public class OmnibotTeleop extends OpMode {
     DcMotor motorBl;
     DcMotor motorBr;
 
-	CRServo sweeper;
+    DcMotor launcher1;
+    DcMotor launcher2;
+    DcMotor launcherControl;
 
+    DcMotor conveyor;
+
+    CRServo sweeper;
     CRServo button;
 
-	//DcMotor launcher1;
-	//DcMotor launcher2;
+    GyroSensor gyro;
+    ColorSensor color;
 
-	float Flpower;
+    float Flpower;
 	float Frpower;
 	float Blpower;
 	float Brpower;
 
 	double powerDivider; //Divide power by this much
-
-    ElapsedTime runtime = new ElapsedTime();
 
 	@Override
 	public void init() {
@@ -50,25 +55,26 @@ public class OmnibotTeleop extends OpMode {
 		 */
         powerDivider = 1;
 
-        motorFl = hardwareMap.dcMotor.get("motor_1");
+        motorFl = hardwareMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
 		motorFr = hardwareMap.dcMotor.get("motor_2");
-        motorBl = hardwareMap.dcMotor.get("motor_3");
+        motorBl = hardwareMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBr = hardwareMap.dcMotor.get("motor_4");
-		motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
-		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
 
-		//launcher1 = hardwareMap.dcMotor.get("motor_5");
-		//launcher2 = hardwareMap.dcMotor.get("motor_6");
+        //launcher1 = hardwareMap.dcMotor.get("launch_1");
+		//launcher2 = hardwareMap.dcMotor.get("launch_2");
+        //launcherControl = hardwareMap.dcMotor.get("launch_3");
+
+        conveyor = hardwareMap.dcMotor.get("motor_5");
 
         sweeper = hardwareMap.crservo.get("servo_1");
-
         button = hardwareMap.crservo.get("servo_2");
-	}
 
-    @Override
-    public void start() {
-        runtime.reset();
+        gyro = hardwareMap.gyroSensor.get("gyro_1");
+        color = hardwareMap.colorSensor.get("color_1");
     }
+
+    //@Override
+    //public void start() {}
 
 	@Override
 	public void loop() {
@@ -85,6 +91,7 @@ public class OmnibotTeleop extends OpMode {
 		}
         */
 
+        //movement code
 		if (gamepad1.right_stick_x < -0.01|| gamepad1.right_stick_x > 0.01) {
 			Flpower = gamepad1.right_stick_x;
 			Frpower = -gamepad1.right_stick_x;
@@ -127,6 +134,7 @@ public class OmnibotTeleop extends OpMode {
             button.setPower(0);
         }
 
+        //launcher code
         if(gamepad1.b) {
 			//launcher1.setPower(1);
 			//launcher2.setPower(1);
