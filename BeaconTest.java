@@ -22,6 +22,7 @@ public class BeaconTest extends LinearOpMode {
      *   "motor_3" is on the back left side of the bot.
      *   "motor_4" is on the back right side of the bot.
      */
+
     DcMotor motorFl;
     DcMotor motorFr;
     DcMotor motorBl;
@@ -69,21 +70,25 @@ public class BeaconTest extends LinearOpMode {
 
         //check if the beacon is red
         if (color.red() > color.blue()) {
+            telemetry.addData("Button Color: ", "Red");
             pressButton(0.5);
         }
 
         //move right for 0.2 seconds
         else {
+            telemetry.addData("Button Color: ", "Blue");
             move(1,-1,-1,1, 0.2);
         }
 
         //check if the beacon is red
         if (color.red() > color.blue()) {
+            telemetry.addData("Button Color: ", "Red");
             pressButton(0.5);
         }
     }
 
     public void pressButton(double pressTime) {
+        telemetry.addData("Status: ", "Pressing Button");
         pressButtonT.reset();
         while (pressButtonT.time() < pressTime) {
             button.setPower(1);
@@ -94,9 +99,11 @@ public class BeaconTest extends LinearOpMode {
         while (pressButtonT.time() > pressTime*2) {
             button.setPower(0);
         }
+        telemetry.addData("Status: ", "Nothing");
     }
 
     public void move(double Fl, double Fr, double Bl, double Br, double moveTime) {
+        telemetry.addData("Status: ", "Moving");
         moveT.reset();
         while (moveT.time() < moveTime) {
             motorFl.setPower(Fl);
@@ -110,5 +117,6 @@ public class BeaconTest extends LinearOpMode {
             motorBl.setPower(0);
             motorBr.setPower(0);
         }
+        telemetry.addData("Status: ", "Nothing");
     }
 }
