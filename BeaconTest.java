@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-//import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -66,12 +65,12 @@ public class BeaconTest extends LinearOpMode {
         color = hardwareMap.colorSensor.get("color_1");
         gyro = hardwareMap.gyroSensor.get("gyro_1");
 
-        waitForStart();
-
         pressButton(2);
 
         move(1,1,1,1, 2);
         move(-1,-1,-1,-1, 2);
+
+        waitForStart();
 
         telemetry.addData("Status: ", "starting");
 
