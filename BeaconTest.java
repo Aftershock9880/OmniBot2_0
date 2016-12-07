@@ -68,6 +68,13 @@ public class BeaconTest extends LinearOpMode {
 
         waitForStart();
 
+        pressButton(2);
+
+        move(1,1,1,1, 2);
+        move(-1,-1,-1,-1, 2);
+
+        telemetry.addData("Status: ", "starting");
+
         //check if the beacon is red
         if (color.red() > color.blue()) {
             telemetry.addData("Button Color: ", "Red");
@@ -87,16 +94,16 @@ public class BeaconTest extends LinearOpMode {
         }
     }
 
-    public void pressButton(double pressTime) {
+    public void pressButton(double extendTime) {
         telemetry.addData("Status: ", "Pressing Button");
         pressButtonT.reset();
-        while (pressButtonT.time() < pressTime) {
+        while (pressButtonT.time() < extendTime) {
             button.setPower(1);
         }
-        while (pressButtonT.time() > pressTime && pressButtonT.time() < pressTime*2) {
+        while (pressButtonT.time() > extendTime && pressButtonT.time() < extendTime*2) {
             button.setPower(-1);
         }
-        while (pressButtonT.time() > pressTime*2) {
+        while (pressButtonT.time() > extendTime*2) {
             button.setPower(0);
         }
         telemetry.addData("Status: ", "Nothing");
