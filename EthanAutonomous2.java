@@ -60,7 +60,7 @@ public class EthanAutonomous2 extends OpMode {
 
     @Override
     public void init() {
-        //Define motors
+        //hardwareMap motors
         motorFl = hardwareMap.dcMotor.get("motor_1");
         motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3");
@@ -68,9 +68,10 @@ public class EthanAutonomous2 extends OpMode {
         motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //Sets all motors to use wheel encoders
         motorBl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorBr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorFl.setMode(DcMotor.RunMode.RUN_TO_POSITION); //Sets all motors to use wheel encoders
+        motorFl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorFr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
@@ -84,8 +85,7 @@ public class EthanAutonomous2 extends OpMode {
 
                 if(!(driveToY == myY && !(inDir(1, 1, myY, myX) == 1))){
                     motorBr.setTargetPosition(myY+1); //Change based on hardware specs
-                    motorBl.
-                    myY = myY+1;
+                    //myY = myY+1;
                 }
             }
 
@@ -182,7 +182,6 @@ int powerDivider; //Divide power by this much
 
         myY = 1;
         myX = 1;
-
 
         driveTo(3,8);
     }
