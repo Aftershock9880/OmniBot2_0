@@ -19,8 +19,8 @@ public class OmnibotTeleop extends OpMode {
     DcMotor motorBl;
     DcMotor motorBr;
 
-    DcMotor launcher1;
-    DcMotor launcher2;
+    DcMotor launcherL;
+    DcMotor launcherR;
     DcMotor launcherControl;
 
     DcMotor conveyor;
@@ -60,11 +60,11 @@ public class OmnibotTeleop extends OpMode {
         motorBl = hardwareMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBr = hardwareMap.dcMotor.get("motor_4");
 
-        //launcher1 = hardwareMap.dcMotor.get("launch_1");
-		//launcher2 = hardwareMap.dcMotor.get("launch_2");
+        launcherL = hardwareMap.dcMotor.get("launch_1");
+		launcherR = hardwareMap.dcMotor.get("launch_2");
         //launcherControl = hardwareMap.dcMotor.get("launch_3");
 
-        conveyor = hardwareMap.dcMotor.get("motor_5");
+        conveyor = hardwareMap.dcMotor.get("motor_5"); conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         sweeper = hardwareMap.crservo.get("servo_1");
         button = hardwareMap.crservo.get("servo_2");

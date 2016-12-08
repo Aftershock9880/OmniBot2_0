@@ -79,12 +79,12 @@ public class BeaconTest extends LinearOpMode {
             telemetry.addData("Button Color: ", "Red");
             pressButton(0.5);
         }
-
         //move right for 0.2 seconds
         else {
             telemetry.addData("Button Color: ", "Blue");
             move(1,-1,-1,1, 0.2);
         }
+        telemetry.update();
 
         //check if the beacon is red
         if (color.red() > color.blue()) {
@@ -96,33 +96,31 @@ public class BeaconTest extends LinearOpMode {
     public void pressButton(double extendTime) {
         telemetry.addData("Status: ", "Pressing Button");
         pressButtonT.reset();
-        while (pressButtonT.time() < extendTime) {
+        while (pressButtonT.time() < extendTime && opModeIsActive()) {
             button.setPower(1);
         }
-        while (pressButtonT.time() > extendTime && pressButtonT.time() < extendTime*2) {
+        while (pressButtonT.time() < extendTime*2 && opModeIsActive()) {
             button.setPower(-1);
         }
-        while (pressButtonT.time() > extendTime*2) {
-            button.setPower(0);
-        }
-        telemetry.addData("Status: ", "Nothing");
+        button.setPower(0);
+        telemetry.addData("Status: ", "Doing Nothing");
+        telemetry.update();
     }
 
     public void move(double Fl, double Fr, double Bl, double Br, double moveTime) {
         telemetry.addData("Status: ", "Moving");
         moveT.reset();
-        while (moveT.time() < moveTime) {
+        while (moveT.time() < moveTime && opModeIsActive()) {
             motorFl.setPower(Fl);
             motorFr.setPower(Fr);
             motorBl.setPower(Bl);
             motorBr.setPower(Br);
         }
-        while (moveT.time() > moveTime) {
-            motorFl.setPower(0);
-            motorFr.setPower(0);
-            motorBl.setPower(0);
-            motorBr.setPower(0);
-        }
-        telemetry.addData("Status: ", "Nothing");
+        motorFl.setPower(0);
+        motorFr.setPower(0);
+        motorBl.setPower(0);
+        motorBr.setPower(0);
+        telemetry.addData("Status: ", "Doing Nothing");
+        telemetry.update();
     }
 }
