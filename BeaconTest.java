@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
 @Autonomous(name = "OmniBot Beacon Test", group = "Omnibot")
 //@Disabled
 public class BeaconTest extends LinearOpMode {
@@ -70,6 +69,9 @@ public class BeaconTest extends LinearOpMode {
         move(1,1,1,1, 2);
         move(-1,-1,-1,-1, 2);
 
+        encoderMove(1,1,1,1);
+        encoderMove(0,0,0,0);
+
         waitForStart();
 
         telemetry.addData("Status: ", "starting");
@@ -120,6 +122,18 @@ public class BeaconTest extends LinearOpMode {
         motorFr.setPower(0);
         motorBl.setPower(0);
         motorBr.setPower(0);
+        telemetry.addData("Status: ", "Doing Nothing");
+        telemetry.update();
+    }
+
+    public void encoderMove(int FlEnc, int FrEnc, int BlEnc, int BrEnc) {
+        telemetry.addData("Status: ", "Moving");
+        DcMotor.RunMode RUN_TO_POSITION;
+        motorFl.setTargetPosition(FlEnc * 1440);
+        motorFr.setTargetPosition(FrEnc * 1440);
+        motorBl.setTargetPosition(BlEnc * 1440);
+        motorBr.setTargetPosition(BrEnc * 1440);
+        DcMotor.RunMode RUN_WITHOUT_ENCODER;
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
     }
