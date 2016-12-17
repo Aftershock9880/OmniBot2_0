@@ -85,7 +85,6 @@ public class TestRigTeleOp extends OpMode
     public void loop() {
         telemetry.addData("Status", "Running: " + runtime.toString());
 
-        //eg: Run wheels in tank mode (note: The joystick goes negative when pushed forwards)
         rightMotor.setPower(gamepad1.right_stick_y);
         leftMotor.setPower(gamepad1.left_stick_y);
 
