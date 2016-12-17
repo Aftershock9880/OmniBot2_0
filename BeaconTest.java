@@ -7,7 +7,10 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
 
 @Autonomous(name = "OmniBot Beacon Test", group = "Omnibot")
 //@Disabled
@@ -36,6 +39,7 @@ public class BeaconTest extends LinearOpMode {
     CRServo button;
 
     ColorSensor color;
+    LightSensor light;
     GyroSensor gyro;
 
     private ElapsedTime pressButtonT = new ElapsedTime();
@@ -62,19 +66,23 @@ public class BeaconTest extends LinearOpMode {
         button = hardwareMap.crservo.get("servo_2");
 
         color = hardwareMap.colorSensor.get("color_1");
+        light = hardwareMap.lightSensor.get("light_1");
         gyro = hardwareMap.gyroSensor.get("gyro_1");
 
         pressButton(2);
 
-        move(1,1,1,1, 2);
-        move(-1,-1,-1,-1, 2);
+        moveFor(1,1,1,1, 2);
+        moveFor(-1,-1,-1,-1, 2);
 
-        encoderMove(1,1,1,1);
-        encoderMove(0,0,0,0);
+        moveTo(1,1,1,1);
+        moveTo(0,0,0,0);
 
         waitForStart();
 
         telemetry.addData("Status: ", "starting");
+
+        moveTo(0.5,0.5,0.5,0.5);
+        moveUntil(1,1,1,1, light.getLightDetected() > 30);
 
         //check if the beacon is red
         if (color.red() > color.blue()) {
@@ -84,7 +92,7 @@ public class BeaconTest extends LinearOpMode {
         //move right for 0.2 seconds
         else {
             telemetry.addData("Button Color: ", "Blue");
-            move(1,-1,-1,1, 0.2);
+            moveFor(1,-1,-1,1, 0.2);
         }
         telemetry.update();
 
@@ -109,7 +117,7 @@ public class BeaconTest extends LinearOpMode {
         telemetry.update();
     }
 
-    public void move(double Fl, double Fr, double Bl, double Br, double moveTime) {
+    public void moveFor(double Fl, double Fr, double Bl, double Br, double moveTime) {
         telemetry.addData("Status: ", "Moving");
         moveT.reset();
         while (moveT.time() < moveTime && opModeIsActive()) {
@@ -126,14 +134,45 @@ public class BeaconTest extends LinearOpMode {
         telemetry.update();
     }
 
-    public void encoderMove(int FlEnc, int FrEnc, int BlEnc, int BrEnc) {
+    public void moveTo(double FlEnc, double FrEnc, double BlEnc, double BrEnc) {
         telemetry.addData("Status: ", "Moving");
-        DcMotor.RunMode RUN_TO_POSITION;
-        motorFl.setTargetPosition(FlEnc * 1440);
-        motorFr.setTargetPosition(FrEnc * 1440);
-        motorBl.setTargetPosition(BlEnc * 1440);
-        motorBr.setTargetPosition(BrEnc * 1440);
-        DcMotor.RunMode RUN_WITHOUT_ENCODER;
+        motorFl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorFr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorBl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorBr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorFl.setTargetPosition(motorFl.getCurrentPosition() + FlEnc * 1440);
+        motorFr.setTargetPosition(motorFr.getCurrentPosition() + FrEnc * 1440);
+        motorBl.setTargetPosition(motorBl.getCurrentPosition() + BlEnc * 1440);
+        motorBr.setTargetPosition(motorBr.getCurrentPosition() + BrEnc * 1440);
+
+        while (
+            motorFl.getCurrentPosition() != motorFl.getTargetPosition() &&
+            motorFr.getCurrentPosition() != motorFr.getTargetPosition() &&
+            motorBl.getCurrentPosition() != motorBl.getTargetPosition() &&
+            motorBr.getCurrentPosition() != motorBr.getTargetPosition() &&
+            opModeIsActive()) {}
+        motorFl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorFr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorBr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        telemetry.addData("Status: ", "Doing Nothing");
+        telemetry.update();
+    }
+
+    private void moveUntil(double Fl, double Fr, double Bl, double Br, boolean thingIsTrue) {
+        telemetry.addData("Status: ", "Moving");
+        while (thingIsTrue && opModeIsActive()) {
+            motorFl.setPower(Fl);
+            motorFr.setPower(Fr);
+            motorBl.setPower(Bl);
+            motorBr.setPower(Br);
+        }
+        motorFl.setPower(0);
+        motorFr.setPower(0);
+        motorBl.setPower(0);
+        motorBr.setPower(0);
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
     }
