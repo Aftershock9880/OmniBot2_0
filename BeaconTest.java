@@ -78,7 +78,6 @@ public class BeaconTest extends LinearOpMode {
         moveTo(0,0,0,0);
 
         waitForStart();
-
         telemetry.addData("Status: ", "starting");
 
         moveTo(0.5,0.5,0.5,0.5);
@@ -141,10 +140,10 @@ public class BeaconTest extends LinearOpMode {
         motorBl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorBr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorFl.setTargetPosition(motorFl.getCurrentPosition() + FlEnc * 1440);
-        motorFr.setTargetPosition(motorFr.getCurrentPosition() + FrEnc * 1440);
-        motorBl.setTargetPosition(motorBl.getCurrentPosition() + BlEnc * 1440);
-        motorBr.setTargetPosition(motorBr.getCurrentPosition() + BrEnc * 1440);
+        motorFl.setTargetPosition(motorFl.getCurrentPosition() + (int)Math.round(FlEnc * 1680));
+        motorFr.setTargetPosition(motorFr.getCurrentPosition() + (int)Math.round(FrEnc * 1680));
+        motorBl.setTargetPosition(motorBl.getCurrentPosition() + (int)Math.round(BlEnc * 1680));
+        motorBr.setTargetPosition(motorBr.getCurrentPosition() + (int)Math.round(BrEnc * 1680));
 
         while (
             motorFl.getCurrentPosition() != motorFl.getTargetPosition() &&
