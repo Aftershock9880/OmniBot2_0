@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -14,16 +15,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class OmnibotTeleop extends OpMode {
 
+    OmniBot2 robot = new OmniBot2();
+
     DcMotor motorFl;
     DcMotor motorFr;
     DcMotor motorBl;
     DcMotor motorBr;
 
-    DcMotor launcherL;
-    DcMotor launcherR;
-    DcMotor launcherControl;
-
     DcMotor conveyor;
+    DcMotor launcher;
 
     CRServo sweeper;
     CRServo button;
@@ -36,41 +36,30 @@ public class OmnibotTeleop extends OpMode {
 	float Blpower;
 	float Brpower;
 
+
 	double powerDivider; //Divide power by this much
 
 	@Override
 	public void init() {
-		/*
-		 * Use the hardwareMap to get the dc motors by name. Note
-		 * that the names of the devices must match the names used when you
-		 * configured your robot and created the configuration file.
-		 */
+		//Use the hardwareMap to get objects by name.
 
-		/*
-		 *   The Omnibot has four motors
-		 *   "motor_1" is on the left side of the bot.
-		 *   "motor_2" is on the right side of the bot.
-		 *   "motor_3" is on the front side of the bot.
-		 *   "motor_4" is on the back side of the bot.
-		 */
-        powerDivider = 1;
+        robot.init(hardwareMap);
 
         motorFl = hardwareMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
 		motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBr = hardwareMap.dcMotor.get("motor_4");
 
-        //launcherL = hardwareMap.dcMotor.get("launch_1");
-		//launcherR = hardwareMap.dcMotor.get("launch_2");
-        //launcherControl = hardwareMap.dcMotor.get("launch_3");
-
         //conveyor = hardwareMap.dcMotor.get("motor_5"); conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
+		//launcher = hardwareMap.dcMotor.get("motor_6");
 
-        sweeper = hardwareMap.crservo.get("servo_1");
+        //sweeper = hardwareMap.crservo.get("servo_1");
         button = hardwareMap.crservo.get("servo_2");
 
         gyro = hardwareMap.gyroSensor.get("gyro_1");
         color = hardwareMap.colorSensor.get("color_1");
+
+
     }
 
     //@Override
@@ -78,33 +67,22 @@ public class OmnibotTeleop extends OpMode {
 
 	@Override
 	public void loop() {
-        // Gamepad 1 controls the movement via the left stick and turning via the right stick
-		// note that if y equal -1 then joystick is pushed all of the way forward.
+        // movement code, Gamepad 1 controls movement with left stick and turning with right stick
+		Flpower = -gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
+		Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x;
+		Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x + gamepad1.right_stick_x;
+		Brpower = -gamepad1.left_stick_y + gamepad1.left_stick_x + -gamepad1.right_stick_x;
 
         /*
 		if (gamepad1.dpad_up){ //If you press the up d-pad, change sensitivity
-			powerDivider = powerDivider + 0.001;
+			powerDivider = powerDivider + 0.005;
 		}
-
-		if (gamepad1.dpad_down) {
-			powerDivider = powerDivider - 0.001;
+        if (gamepad1.dpad_down) {
+			powerDivider = powerDivider - 0.005;
 		}
         */
 
-        //movement code
-		if (gamepad1.right_stick_x < -0.01|| gamepad1.right_stick_x > 0.01) {
-			Flpower = gamepad1.right_stick_x;
-			Frpower = -gamepad1.right_stick_x;
-			Blpower = gamepad1.right_stick_x;
-			Brpower = -gamepad1.right_stick_x;
-		}
-		else {
-			Flpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
-			Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
-			Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
-			Brpower = -gamepad1.left_stick_y + gamepad1.left_stick_x;
-		}
-		if(powerDivider <= 0){
+        if(powerDivider <= 0){
 			powerDivider = 0.001;
 		}
 		motorFl.setPower(Flpower /*/powerDivider*/);
@@ -112,7 +90,7 @@ public class OmnibotTeleop extends OpMode {
 		motorBl.setPower(Blpower /*/powerDivider*/);
 		motorBr.setPower(Brpower /*/powerDivider*/);
 
-        //sweeper code
+        //sweeper code, Gamepad 1 controls sweeping in with right bumper and
 		if(gamepad1.right_bumper){
             sweeper.setPower(1);
 		}
@@ -123,25 +101,21 @@ public class OmnibotTeleop extends OpMode {
             sweeper.setPower(0);
         }
 
-        //button pusher code
+        //button pusher code, Gamepad 1 controls extending with y and retracting with a
         if(gamepad1.y) {
             button.setPower(1);
         }
-        else if (gamepad1.a){
+        else if (gamepad1.a || gamepad2.dpad_down){
             button.setPower(-1);
         }
         else {
             button.setPower(0);
         }
 
-        //launcher code
-        if(gamepad1.b) {
-			//launcher1.setPower(1);
-			//launcher2.setPower(1);
-		}
-		if(gamepad1.a) {
-			//launcher1.setPower(-1);
-			//launcher2.setPower(-1);
+        //launcher code, Gamepad controls the conveyor and launcher wheels with b
+        if(gamepad2.b) {
+			launcher.setPower(1);
+            conveyor.setPower(1);
 		}
 
 		//Send telemetry data back to driver station.
