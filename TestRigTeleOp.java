@@ -45,8 +45,6 @@ public class TestRigTeleOp extends OpMode
 {
     /* Declare OpMode members. */
     private ElapsedTime runtime = new ElapsedTime();
-    double leftPower;
-    double rightPower;
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -66,10 +64,10 @@ public class TestRigTeleOp extends OpMode
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
 
-        conveyor = hardwareMap.dcMotor.get("motor_conveyor");
+        conveyor = hardwareMap.dcMotor.get("motor_conveyor"); conveyor.setDirection(DcMotor.Direction.REVERSE);
         launcher = hardwareMap.dcMotor.get("motor_launcher");
 
-        conveyor.setDirection(DcMotor.Direction.REVERSE);
+
     }
 
     @Override
