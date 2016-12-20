@@ -62,7 +62,7 @@ public class BeaconTest extends LinearOpMode {
 
         //conveyor = hardwareMap.dcMotor.get("motor_5");
 
-        sweeper = hardwareMap.crservo.get("servo_1");
+        //sweeper = hardwareMap.crservo.get("servo_1");
         button = hardwareMap.crservo.get("servo_2");
 
         color = hardwareMap.colorSensor.get("color_1");
@@ -105,10 +105,10 @@ public class BeaconTest extends LinearOpMode {
     public void pressButton(double extendTime) {
         telemetry.addData("Status: ", "Pressing Button");
         pressButtonT.reset();
-        while (pressButtonT.time() < extendTime && opModeIsActive()) {
+        while (pressButtonT.time() <= extendTime && opModeIsActive()) {
             button.setPower(1);
         }
-        while (pressButtonT.time() < extendTime*2 && opModeIsActive()) {
+        while (pressButtonT.time() <= extendTime*2 && opModeIsActive()) {
             button.setPower(-1);
         }
         button.setPower(0);
@@ -119,7 +119,7 @@ public class BeaconTest extends LinearOpMode {
     public void moveFor(double Fl, double Fr, double Bl, double Br, double moveTime) {
         telemetry.addData("Status: ", "Moving");
         moveT.reset();
-        while (moveT.time() < moveTime && opModeIsActive()) {
+        while (moveT.time() <= moveTime && opModeIsActive()) {
             motorFl.setPower(Fl);
             motorFr.setPower(Fr);
             motorBl.setPower(Bl);
@@ -146,11 +146,13 @@ public class BeaconTest extends LinearOpMode {
         motorBr.setTargetPosition(motorBr.getCurrentPosition() + (int)Math.round(BrEnc * 1680));
 
         while (
-            motorFl.getCurrentPosition() != motorFl.getTargetPosition() &&
-            motorFr.getCurrentPosition() != motorFr.getTargetPosition() &&
-            motorBl.getCurrentPosition() != motorBl.getTargetPosition() &&
-            motorBr.getCurrentPosition() != motorBr.getTargetPosition() &&
-            opModeIsActive()) {}
+            motorFl.isBusy()&& motorFr.isBusy()&& motorBl.isBusy()&& motorBr.isBusy()&& opModeIsActive()) {
+            motorFl.setPower(1);
+            motorFr.setPower(1);
+            motorBl.setPower(1);
+            motorBr.setPower(1);
+        }
+
         motorFl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorFr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorBl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
