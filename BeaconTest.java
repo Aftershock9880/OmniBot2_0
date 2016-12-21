@@ -24,6 +24,8 @@ public class BeaconTest extends LinearOpMode {
      *   "motor_4" is on the back right side of the bot.
      */
 
+    HardwareOmniBot2 robot = new HardwareOmniBot2();
+
     DcMotor motorFl;
     DcMotor motorFr;
     DcMotor motorBl;
@@ -51,6 +53,8 @@ public class BeaconTest extends LinearOpMode {
          * Note that the names of the devices must match the names in the config file.
          */
 
+        robot.init(hardwareMap);
+
         motorFl = hardwareMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFr = hardwareMap.dcMotor.get("motor_2");
         motorBl = hardwareMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -69,10 +73,10 @@ public class BeaconTest extends LinearOpMode {
         light = hardwareMap.lightSensor.get("light_1");
         gyro = hardwareMap.gyroSensor.get("gyro_1");
 
-        pressButton(2);
+        pressButton(1);
 
-        moveFor(1,1,1,1, 2);
-        moveFor(-1,-1,-1,-1, 2);
+        //moveFor(1,1,1,1, 2);
+        //moveFor(-1,-1,-1,-1, 2);
 
         moveTo(1,1,1,1);
         moveTo(0,0,0,0);
@@ -133,6 +137,22 @@ public class BeaconTest extends LinearOpMode {
         telemetry.update();
     }
 
+    public void moveUntil(double Fl, double Fr, double Bl, double Br, boolean thingIsTrue) {
+        telemetry.addData("Status: ", "Moving");
+        while (thingIsTrue && opModeIsActive()) {
+            motorFl.setPower(Fl);
+            motorFr.setPower(Fr);
+            motorBl.setPower(Bl);
+            motorBr.setPower(Br);
+        }
+        motorFl.setPower(0);
+        motorFr.setPower(0);
+        motorBl.setPower(0);
+        motorBr.setPower(0);
+        telemetry.addData("Status: ", "Doing Nothing");
+        telemetry.update();
+    }
+
     public void moveTo(double FlEnc, double FrEnc, double BlEnc, double BrEnc) {
         telemetry.addData("Status: ", "Moving");
         motorFl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -153,27 +173,16 @@ public class BeaconTest extends LinearOpMode {
             motorBr.setPower(1);
         }
 
+        motorFl.setPower(0);
+        motorFr.setPower(0);
+        motorBl.setPower(0);
+        motorBr.setPower(0);
+
         motorFl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorFr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorBl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorBr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        telemetry.addData("Status: ", "Doing Nothing");
-        telemetry.update();
-    }
-
-    private void moveUntil(double Fl, double Fr, double Bl, double Br, boolean thingIsTrue) {
-        telemetry.addData("Status: ", "Moving");
-        while (thingIsTrue && opModeIsActive()) {
-            motorFl.setPower(Fl);
-            motorFr.setPower(Fr);
-            motorBl.setPower(Bl);
-            motorBr.setPower(Br);
-        }
-        motorFl.setPower(0);
-        motorFr.setPower(0);
-        motorBl.setPower(0);
-        motorBr.setPower(0);
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
     }
