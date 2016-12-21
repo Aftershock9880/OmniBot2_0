@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "OmniBot Autonomous", group = "Omnibot")
 //@Disabled
-public class OmnibotBasicAutonomous extends OpMode {
+public class OmniBotBasicAutonomous extends OpMode {
 
     DcMotor motorFl;
     DcMotor motorFr;
@@ -16,8 +16,6 @@ public class OmnibotBasicAutonomous extends OpMode {
     DcMotor motorBr;
 
     private ElapsedTime runtime = new ElapsedTime();
-
-	public OmnibotBasicAutonomous() {}
 
 	@Override
 	public void init() {

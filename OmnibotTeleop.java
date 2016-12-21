@@ -13,9 +13,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "OmniBot Teleop", group = "Omnibot")
 //@Disabled
-public class OmnibotTeleop extends OpMode {
+public class OmniBotTeleop extends OpMode {
 
-    OmniBot2 robot = new OmniBot2();
+    HardwareOmniBot2 robot = new HardwareOmniBot2();
 
     DcMotor motorFl;
     DcMotor motorFr;
@@ -41,7 +41,7 @@ public class OmnibotTeleop extends OpMode {
 
 	@Override
 	public void init() {
-		//Use the hardwareMap to get objects by name.
+		//Use hardwareMap to get objects by name.
 
         robot.init(hardwareMap);
 
@@ -58,7 +58,6 @@ public class OmnibotTeleop extends OpMode {
 
         gyro = hardwareMap.gyroSensor.get("gyro_1");
         color = hardwareMap.colorSensor.get("color_1");
-
 
     }
 

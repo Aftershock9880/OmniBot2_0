@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.Hardware;
 
 /**
  * This is NOT an opmode.
@@ -31,44 +32,47 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Color sensor              "color_1"
  * Light sensor              "light_1"
  */
-public class OmniBot2
+public class HardwareOmniBot2
 {
     //Public OpMode members
-    DcMotor motorFl;
-    DcMotor motorFr;
-    DcMotor motorBl;
-    DcMotor motorBr;
+    public DcMotor motorFl;
+    public DcMotor motorFr;
+    public DcMotor motorBl;
+    public DcMotor motorBr;
 
-    DcMotor conveyor;
-    DcMotor launcher;
+    public DcMotor conveyor;
+    public DcMotor launcher;
 
-    CRServo sweeper;
-    CRServo button;
+    public CRServo sweeper;
+    public CRServo button;
 
-    GyroSensor gyro;
-    ColorSensor color;
-    LightSensor light;
+    public GyroSensor gyro;
+    public ColorSensor color;
+    public LightSensor light;
 
     //Local OpMode members
-    HardwareMap hwMap = null;
+    public HardwareMap hwMap = null;
+
+    //Constructor
+    public HardwareOmniBot2() {}
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
         hwMap = ahwMap;
 
-        motorFl = hwMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorFr = hwMap.dcMotor.get("motor_2");
-        motorBl = hwMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBr = hwMap.dcMotor.get("motor_4");
+        motorFl =  hwMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorFr =  hwMap.dcMotor.get("motor_2");
+        motorBl =  hwMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBr =  hwMap.dcMotor.get("motor_4");
 
-        //conveyor = hwMap.dcMotor.get("motor_5"); conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //launcher = hwMap.dcMotor.get("motor_6");
+        conveyor = hwMap.dcMotor.get("motor_5"); conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
+        launcher = hwMap.dcMotor.get("motor_6");
 
-        //sweeper = hwMap.crservo.get("servo_1");
-        button = hwMap.crservo.get("servo_2");
+        sweeper =  hwMap.crservo.get("servo_1");
+        button =   hwMap.crservo.get("servo_2");
 
-        gyro = hwMap.gyroSensor.get("gyro_1");
-        color = hwMap.colorSensor.get("color_1");
-        light = hwMap.lightSensor.get("light_1");
+        gyro =     hwMap.gyroSensor.get("gyro_1");
+        color =    hwMap.colorSensor.get("color_1");
+        light =    hwMap.lightSensor.get("light_1");
     }
 }
