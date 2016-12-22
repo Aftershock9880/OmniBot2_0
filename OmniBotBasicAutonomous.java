@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,44 +9,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class OmniBotBasicAutonomous extends OpMode {
 
-    DcMotor motorFl;
-    DcMotor motorFr;
-    DcMotor motorBl;
-    DcMotor motorBr;
+    HardwareOmniBot2 robot = new HardwareOmniBot2();
 
     private ElapsedTime runtime = new ElapsedTime();
 
 	@Override
 	public void init() {
-		/*
-		 * Use the hardwareMap to get the dc motors by name. Note
-		 * that the names of the devices must match the names used when you
-		 * configured your robot and created the configuration file.
-		 */
+        robot.init(hardwareMap);
 
-		/*
-		 *   The Omnibot has four motors
-		 *   "motor_1" is on the left side of the bot.
-		 *   "motor_2" is on the right side of the bot.
-		 *   "motor_3" is on the front side of the bot.
-		 *   "motor_4" is on the back side of the bot.
-		 */
-        motorFl = hardwareMap.dcMotor.get("motor_1");
-		motorFr = hardwareMap.dcMotor.get("motor_2");
-        motorBl = hardwareMap.dcMotor.get("motor_3");
-        motorBr = hardwareMap.dcMotor.get("motor_4");
-		motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
-		motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
-
-		//spinner = hardwareMap.dcMotor.get("motor_5");
-
-		//launcher1 = hardwareMap.dcMotor.get("motor_5");
-		//launcher2 = hardwareMap.dcMotor.get("motor_5");
 	}
 
     @Override
     public void start() {
         runtime.reset();
+
     }
 
     @Override
@@ -56,16 +31,16 @@ public class OmniBotBasicAutonomous extends OpMode {
         // note that if y equal -1 then joystick is pushed all of the way forward.
 
         if (runtime.time() < 3.5){
-        	motorFl.setPower(1);
-        	motorFr.setPower(1);
-        	motorBl.setPower(1);
-        	motorBr.setPower(1);
+        	robot.motorFl.setPower(1);
+        	robot.motorFr.setPower(1);
+        	robot.motorBl.setPower(1);
+        	robot.motorBr.setPower(1);
         }
         else {
-            motorFl.setPower(0);
-            motorFr.setPower(0);
-            motorBl.setPower(0);
-            motorBr.setPower(0);
+            robot.motorFl.setPower(0);
+            robot.motorFr.setPower(0);
+            robot.motorBl.setPower(0);
+            robot.motorBr.setPower(0);
         }
     }
 }
