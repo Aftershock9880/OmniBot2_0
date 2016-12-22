@@ -16,62 +16,15 @@ import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
 //@Disabled
 public class BeaconTest extends LinearOpMode {
 
-    /*
-     *   The Omnibot v2 has four motors
-     *   "motor_1" is on the front left side of the bot.
-     *   "motor_2" is on the front right side of the bot.
-     *   "motor_3" is on the back left side of the bot.
-     *   "motor_4" is on the back right side of the bot.
-     */
-
     HardwareOmniBot2 robot = new HardwareOmniBot2();
-
-    DcMotor motorFl;
-    DcMotor motorFr;
-    DcMotor motorBl;
-    DcMotor motorBr;
-
-    DcMotor launcher1;
-    DcMotor launcher2;
-    DcMotor launcherControl;
-
-    DcMotor conveyor;
-
-    CRServo sweeper;
-    CRServo button;
-
-    ColorSensor color;
-    LightSensor light;
-    GyroSensor gyro;
 
     private ElapsedTime pressButtonT = new ElapsedTime();
     private ElapsedTime moveT = new ElapsedTime();
 
     @Override
     public final void runOpMode() {
-        /* Use the hardwareMap to get the dc motors by name.
-         * Note that the names of the devices must match the names in the config file.
-         */
 
         robot.init(hardwareMap);
-
-        motorFl = hardwareMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorFr = hardwareMap.dcMotor.get("motor_2");
-        motorBl = hardwareMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBr = hardwareMap.dcMotor.get("motor_4");
-
-        //launcher1 = hardwareMap.dcMotor.get("launch_1");
-        //launcher2 = hardwareMap.dcMotor.get("launch_2");
-        //launcherControl = hardwareMap.dcMotor.get("launch_3");
-
-        //conveyor = hardwareMap.dcMotor.get("motor_5");
-
-        //sweeper = hardwareMap.crservo.get("servo_1");
-        button = hardwareMap.crservo.get("servo_2");
-
-        color = hardwareMap.colorSensor.get("color_1");
-        light = hardwareMap.lightSensor.get("light_1");
-        gyro = hardwareMap.gyroSensor.get("gyro_1");
 
         pressButton(1);
 
@@ -85,10 +38,10 @@ public class BeaconTest extends LinearOpMode {
         telemetry.addData("Status: ", "starting");
 
         moveTo(0.5,0.5,0.5,0.5);
-        moveUntil(1,1,1,1, light.getLightDetected() > 30);
+        moveUntil(1,1,1,1, robot.light.getLightDetected() > 30);
 
         //check if the beacon is red
-        if (color.red() > color.blue()) {
+        if (robot.color.red() > robot.color.blue()) {
             telemetry.addData("Button Color: ", "Red");
             pressButton(0.5);
         }
@@ -100,88 +53,87 @@ public class BeaconTest extends LinearOpMode {
         telemetry.update();
 
         //check if the beacon is red
-        if (color.red() > color.blue()) {
+        if (robot.color.red() > robot.color.blue()) {
             telemetry.addData("Button Color: ", "Red");
             pressButton(0.5);
         }
     }
 
-    public void pressButton(double extendTime) {
+    void pressButton(double extendTime) {
         telemetry.addData("Status: ", "Pressing Button");
         pressButtonT.reset();
         while (pressButtonT.time() <= extendTime && opModeIsActive()) {
-            button.setPower(1);
+            robot.button.setPower(1);
         }
         while (pressButtonT.time() <= extendTime*2 && opModeIsActive()) {
-            button.setPower(-1);
+            robot.button.setPower(-1);
         }
-        button.setPower(0);
+        robot.button.setPower(0);
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
     }
 
-    public void moveFor(double Fl, double Fr, double Bl, double Br, double moveTime) {
+    void moveFor(double Fl, double Fr, double Bl, double Br, double moveTime) {
         telemetry.addData("Status: ", "Moving");
         moveT.reset();
         while (moveT.time() <= moveTime && opModeIsActive()) {
-            motorFl.setPower(Fl);
-            motorFr.setPower(Fr);
-            motorBl.setPower(Bl);
-            motorBr.setPower(Br);
+            robot.motorFl.setPower(Fl);
+            robot.motorFr.setPower(Fr);
+            robot.motorBl.setPower(Bl);
+            robot.motorBr.setPower(Br);
         }
-        motorFl.setPower(0);
-        motorFr.setPower(0);
-        motorBl.setPower(0);
-        motorBr.setPower(0);
+        robot.motorFl.setPower(0);
+        robot.motorFr.setPower(0);
+        robot.motorBl.setPower(0);
+        robot.motorBr.setPower(0);
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
     }
 
-    public void moveUntil(double Fl, double Fr, double Bl, double Br, boolean thingIsTrue) {
+    void moveUntil(double Fl, double Fr, double Bl, double Br, boolean thingIsTrue) {
         telemetry.addData("Status: ", "Moving");
         while (thingIsTrue && opModeIsActive()) {
-            motorFl.setPower(Fl);
-            motorFr.setPower(Fr);
-            motorBl.setPower(Bl);
-            motorBr.setPower(Br);
+            robot.motorFl.setPower(Fl);
+            robot.motorFr.setPower(Fr);
+            robot.motorBl.setPower(Bl);
+            robot.motorBr.setPower(Br);
         }
-        motorFl.setPower(0);
-        motorFr.setPower(0);
-        motorBl.setPower(0);
-        motorBr.setPower(0);
+        robot.motorFl.setPower(0);
+        robot.motorFr.setPower(0);
+        robot.motorBl.setPower(0);
+        robot.motorBr.setPower(0);
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
     }
 
-    public void moveTo(double FlEnc, double FrEnc, double BlEnc, double BrEnc) {
+    void moveTo(double FlEnc, double FrEnc, double BlEnc, double BrEnc) {
         telemetry.addData("Status: ", "Moving");
-        motorFl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorFr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorBl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorBr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorFl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorFr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorBl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motorBr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorFl.setTargetPosition(motorFl.getCurrentPosition() + (int)Math.round(FlEnc * 1680));
-        motorFr.setTargetPosition(motorFr.getCurrentPosition() + (int)Math.round(FrEnc * 1680));
-        motorBl.setTargetPosition(motorBl.getCurrentPosition() + (int)Math.round(BlEnc * 1680));
-        motorBr.setTargetPosition(motorBr.getCurrentPosition() + (int)Math.round(BrEnc * 1680));
+        robot.motorFl.setTargetPosition(robot.motorFl.getCurrentPosition() + (int)Math.round(FlEnc * 1680));
+        robot.motorFr.setTargetPosition(robot.motorFr.getCurrentPosition() + (int)Math.round(FrEnc * 1680));
+        robot.motorBl.setTargetPosition(robot.motorBl.getCurrentPosition() + (int)Math.round(BlEnc * 1680));
+        robot.motorBr.setTargetPosition(robot.motorBr.getCurrentPosition() + (int)Math.round(BrEnc * 1680));
 
-        while (
-            motorFl.isBusy()&& motorFr.isBusy()&& motorBl.isBusy()&& motorBr.isBusy()&& opModeIsActive()) {
-            motorFl.setPower(1);
-            motorFr.setPower(1);
-            motorBl.setPower(1);
-            motorBr.setPower(1);
+        while (robot.motorFl.isBusy()&& robot.motorFr.isBusy()&& robot.motorBl.isBusy()&& robot.motorBr.isBusy()&& opModeIsActive()) {
+            robot.motorFl.setPower(1);
+            robot.motorFr.setPower(1);
+            robot.motorBl.setPower(1);
+            robot.motorBr.setPower(1);
         }
 
-        motorFl.setPower(0);
-        motorFr.setPower(0);
-        motorBl.setPower(0);
-        motorBr.setPower(0);
+        robot.motorFl.setPower(0);
+        robot.motorFr.setPower(0);
+        robot.motorBl.setPower(0);
+        robot.motorBr.setPower(0);
 
-        motorFl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorFr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorBl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorBr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorFl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorFr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motorBr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
