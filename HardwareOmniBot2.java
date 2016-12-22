@@ -51,14 +51,13 @@ public class HardwareOmniBot2
     public LightSensor light;
 
     //Local OpMode members
-    public HardwareMap hwMap = null;
+    public HardwareMap hwMap;
 
     //Constructor
     public HardwareOmniBot2() {}
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
-        hwMap = ahwMap;
+    public void init() {
 
         motorFl =  hwMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFr =  hwMap.dcMotor.get("motor_2");

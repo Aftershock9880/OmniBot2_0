@@ -26,7 +26,7 @@ public class OmniBotTeleop extends OpMode {
 
 	@Override
 	public void init() {
-        robot.init(hardwareMap);
+        robot.init();
 
     }
 
