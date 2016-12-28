@@ -10,10 +10,12 @@ import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Hardware;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
+
 /**
  * This is NOT an opmode.
  *
- * This class can be used to define all the specific hardware for the OmniBot2.0.
+ * This class is used to define all the hardware for the OmniBot2.0.
  * This hardware class uses the following device names that have been configured on the robot phone:
  *
  * Front Left drive motor:   "motor_1"
