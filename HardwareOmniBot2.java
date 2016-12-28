@@ -14,7 +14,6 @@ import com.qualcomm.robotcore.util.Hardware;
  * This is NOT an opmode.
  *
  * This class can be used to define all the specific hardware for the OmniBot2.0.
- *
  * This hardware class uses the following device names that have been configured on the robot phone:
  *
  * Front Left drive motor:   "motor_1"
@@ -32,8 +31,8 @@ import com.qualcomm.robotcore.util.Hardware;
  * Color sensor              "color_1"
  * Light sensor              "light_1"
  */
-public class HardwareOmniBot2
-{
+
+public class HardwareOmniBot2 {
     //Public OpMode members
     public DcMotor motorFl;
     public DcMotor motorFr;
@@ -51,27 +50,27 @@ public class HardwareOmniBot2
     public LightSensor light;
 
     //Local OpMode members
-    public HardwareMap hwMap;
+    HardwareMap hwMap;
 
     //Constructor
-    public HardwareOmniBot2() {}
+    HardwareOmniBot2() {}
 
     /* Initialize standard Hardware interfaces */
     public void init() {
 
-        motorFl =  hwMap.dcMotor.get("motor_1"); motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorFl =  hwMap.dcMotor.get("motor_1");  motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFr =  hwMap.dcMotor.get("motor_2");
-        motorBl =  hwMap.dcMotor.get("motor_3"); motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBl =  hwMap.dcMotor.get("motor_3");  motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBr =  hwMap.dcMotor.get("motor_4");
 
-        conveyor = hwMap.dcMotor.get("motor_5"); conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
-        launcher = hwMap.dcMotor.get("motor_6");
+        //conveyor = hwMap.dcMotor.get("motor_5");  conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //launcher = hwMap.dcMotor.get("motor_6");
 
-        sweeper =  hwMap.crservo.get("servo_1");
+        //sweeper =  hwMap.crservo.get("servo_1");
         button =   hwMap.crservo.get("servo_2");
 
         gyro =     hwMap.gyroSensor.get("gyro_1");
-        color =    hwMap.colorSensor.get("color_1");
-        light =    hwMap.lightSensor.get("light_1");
+        //color =    hwMap.colorSensor.get("color_1");
+        //light =    hwMap.lightSensor.get("light_1");
     }
 }

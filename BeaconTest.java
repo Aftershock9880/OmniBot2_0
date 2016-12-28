@@ -2,12 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
@@ -37,7 +32,7 @@ public class BeaconTest extends LinearOpMode {
         waitForStart();
         telemetry.addData("Status: ", "starting");
 
-        moveTo(0.5,0.5,0.5,0.5);
+        moveTo(1,1,1,1);
         moveUntil(1,1,1,1, robot.light.getLightDetected() > 30);
 
         //check if the beacon is red
