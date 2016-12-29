@@ -10,8 +10,6 @@ import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Hardware;
 
-import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
-
 /**
  * This is NOT an opmode.
  *
@@ -36,23 +34,23 @@ import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
 
 public class HardwareOmniBot2 {
     //Public OpMode members
-    public DcMotor motorFl;
-    public DcMotor motorFr;
-    public DcMotor motorBl;
-    public DcMotor motorBr;
+    public DcMotor motorFl    = null;
+    public DcMotor motorFr    = null;
+    public DcMotor motorBl    = null;
+    public DcMotor motorBr    = null;
 
-    public DcMotor conveyor;
-    public DcMotor launcher;
+    public DcMotor conveyor   = null;
+    public DcMotor launcher   = null;
 
-    public CRServo sweeper;
-    public CRServo button;
+    public CRServo sweeper    = null;
+    public CRServo button     = null;
 
-    public GyroSensor gyro;
-    public ColorSensor color;
-    public LightSensor light;
+    public GyroSensor gyro    = null;
+    public ColorSensor color  = null;
+    public LightSensor light  = null;
 
     //Local OpMode members
-    HardwareMap hwMap;
+    HardwareMap hwMap         = null;
 
     //Constructor
     HardwareOmniBot2() {}
