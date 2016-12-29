@@ -19,7 +19,7 @@ public class BeaconTest extends LinearOpMode {
     @Override
     public final void runOpMode() {
 
-        robot.init();
+        robot.init(hardwareMap);
 
         pressButton(1);
 
