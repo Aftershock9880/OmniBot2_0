@@ -5,9 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
-
-@Autonomous(name = "OmniBot Beacon Test", group = "Omnibot")
+@Autonomous(name = "OmniBot Beacon Test", group = "OmniBot")
 //@Disabled
 public class BeaconTest extends LinearOpMode {
 

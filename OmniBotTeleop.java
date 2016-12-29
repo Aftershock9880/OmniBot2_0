@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "OmniBot Teleop", group = "Omnibot")
+@TeleOp(name = "OmniBot Teleop", group = "OmniBot")
 //@Disabled
 public class OmniBotTeleop extends OpMode {
 
