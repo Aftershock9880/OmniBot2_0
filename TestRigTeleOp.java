@@ -67,7 +67,6 @@ public class TestRigTeleOp extends OpMode
         conveyor = hardwareMap.dcMotor.get("motor_conveyor"); conveyor.setDirection(DcMotor.Direction.REVERSE);
         launcher = hardwareMap.dcMotor.get("motor_launcher");
 
-
     }
 
     @Override
@@ -95,9 +94,4 @@ public class TestRigTeleOp extends OpMode
             conveyor.setPower(0);
         }
     }
-
-    @Override
-    public void stop() {
-    }
-
 }
