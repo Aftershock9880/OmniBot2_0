@@ -58,7 +58,9 @@ public class HardwareOmniBot2 {
     HardwareOmniBot2() {}
 
     /* Initialize standard Hardware interfaces */
-    public void init() {
+    public void init(HardwareMap ahwMap) {
+        // Save reference to Hardware map
+        hwMap = ahwMap;
 
         motorFl =  hwMap.dcMotor.get("motor_1");  motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFr =  hwMap.dcMotor.get("motor_2");
