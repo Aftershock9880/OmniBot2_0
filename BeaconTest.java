@@ -19,19 +19,26 @@ public class BeaconTest extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        pressButton(1);
 
         //moveFor(1,1,1,1, 2);
         //moveFor(-1,-1,-1,-1, 2);
 
-        moveTo(1,1,1,1);
-        moveTo(0,0,0,0);
+        moveTo(2,2,2,2);
+
+        moveFor(1,1,1,1, 1);
+
+        moveUntil(1,1,1,1, moveT.time() > 2);
 
         waitForStart();
         telemetry.addData("Status: ", "starting");
 
-        moveTo(1,1,1,1);
-        moveUntil(1,1,1,1, robot.light.getLightDetected() > 30);
+        moveTo(-2,-2,-2,-2);
+
+        moveFor(-1,-1,-1,-1, 1);
+
+        moveUntil(-1,-1,-1,-1, moveT.time() > 2);
+
+        /*moveUntil(1,1,1,1, robot.light.getLightDetected() > 30);
 
         //check if the beacon is red
         if (robot.color.red() > robot.color.blue()) {
@@ -49,7 +56,7 @@ public class BeaconTest extends LinearOpMode {
         if (robot.color.red() > robot.color.blue()) {
             telemetry.addData("Button Color: ", "Red");
             pressButton(0.5);
-        }
+        }*/
     }
 
     void pressButton(double extendTime) {
@@ -112,10 +119,10 @@ public class BeaconTest extends LinearOpMode {
         robot.motorBr.setTargetPosition(robot.motorBr.getCurrentPosition() + (int)Math.round(BrEnc * 1680));
 
         while (robot.motorFl.isBusy()&& robot.motorFr.isBusy()&& robot.motorBl.isBusy()&& robot.motorBr.isBusy()&& opModeIsActive()) {
-            robot.motorFl.setPower(1);
-            robot.motorFr.setPower(1);
-            robot.motorBl.setPower(1);
-            robot.motorBr.setPower(1);
+            robot.motorFl.setPower(0.5);
+            robot.motorFr.setPower(0.5);
+            robot.motorBl.setPower(0.5);
+            robot.motorBr.setPower(0.5);
         }
 
         robot.motorFl.setPower(0);
