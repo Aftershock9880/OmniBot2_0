@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class BeaconTest extends LinearOpMode {
 
-    HardwareOmniBot2 robot = new HardwareOmniBot2();
+    private HardwareOmniBot2 robot = new HardwareOmniBot2();
 
     private ElapsedTime pressButtonT = new ElapsedTime();
     private ElapsedTime moveT = new ElapsedTime();
@@ -19,22 +19,23 @@ public class BeaconTest extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-
         //moveFor(1,1,1,1, 2);
         //moveFor(-1,-1,-1,-1, 2);
 
         moveTo(2,2,2,2);
 
-        moveFor(1,1,1,1, 1);
+        moveFor(-1,-1,-1,-1, 1);
 
         moveUntil(1,1,1,1, moveT.time() > 2);
+
+        pressButton(3.1);
 
         waitForStart();
         telemetry.addData("Status: ", "starting");
 
         moveTo(-2,-2,-2,-2);
 
-        moveFor(-1,-1,-1,-1, 1);
+        moveFor(1,1,1,1, 1);
 
         moveUntil(-1,-1,-1,-1, moveT.time() > 2);
 

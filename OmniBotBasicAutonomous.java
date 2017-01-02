@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 public class OmniBotBasicAutonomous extends OpMode {
 
-    HardwareOmniBot2 robot = new HardwareOmniBot2();
+    private HardwareOmniBot2 robot = new HardwareOmniBot2();
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -27,9 +27,6 @@ public class OmniBotBasicAutonomous extends OpMode {
 
     @Override
     public void loop() {
-        // Gamepad 1 controls the movement via the left stick and turning via the right stick
-        // note that if y equal -1 then joystick is pushed all of the way forward.
-
         if (runtime.time() < 3.5){
         	robot.motorFl.setPower(1);
         	robot.motorFr.setPower(1);
