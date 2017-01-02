@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 //@Disabled
 public class OmniBotGyroTeleop extends OpMode {
 
-    HardwareOmniBot2 robot = new HardwareOmniBot2();
+    private HardwareOmniBot2 robot = new HardwareOmniBot2();
 
-	double powerDivider = 1; //Divide power by this much
+	private double powerDivider = 1; //Divide power by this much
 
 	@Override
 	public void init() {
