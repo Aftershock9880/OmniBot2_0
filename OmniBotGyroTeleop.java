@@ -11,6 +11,8 @@ public class OmniBotGyroTeleop extends OpMode {
 
 	private double powerDivider = 1; //Divide power by this much
 
+    int direction;
+
 	@Override
 	public void init() {
         robot.init(hardwareMap);
@@ -37,10 +39,27 @@ public class OmniBotGyroTeleop extends OpMode {
 			powerDivider = 1;
 		}
 
-		robot.motorFl.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x);
-		robot.motorFr.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/);
-		robot.motorBl.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x + gamepad1.right_stick_x /*/powerDivider*/);
-		robot.motorBr.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/);
+        robot.motorFl.setPower(-gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x);
+        robot.motorFr.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x);
+        robot.motorBl.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x);
+        robot.motorBr.setPower(-gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x);
+
+        if (gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x < -0.001) {
+                direction = robot.gyro.getHeading();
+        }
+
+        while (robot.gyro.getHeading() < direction) {
+            robot.motorFl.setPower(1);
+            robot.motorFr.setPower(-1);
+            robot.motorBl.setPower(1);
+            robot.motorBr.setPower(-1);
+        }
+        while (robot.gyro.getHeading() > direction) {
+            robot.motorFl.setPower(-1);
+            robot.motorFr.setPower(1);
+            robot.motorBl.setPower(-1);
+            robot.motorBr.setPower(1);
+        }
 
         /*/sweeper code, Gamepad 1 controls sweeping in with right bumper
 		if(gamepad1.right_bumper){
@@ -73,7 +92,7 @@ public class OmniBotGyroTeleop extends OpMode {
 		//Send telemetry data back to driver station.
 		telemetry.addData("stick X: ", -gamepad1.left_stick_x);
 		telemetry.addData("stick Y: ", -gamepad1.left_stick_y);
-		telemetry.addData("power divider:", powerDivider);
-        //telemetry.addData("Power Divider: ", powerDivider);
+		telemetry.addData("power divider: ", powerDivider);
+        telemetry.addData("gyro heading: ", robot.gyro.getHeading());
 	}
 }
