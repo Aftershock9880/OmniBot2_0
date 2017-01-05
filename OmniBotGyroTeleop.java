@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "OmniBot Teleop", group = "OmniBot")
+@TeleOp(name = "OmniBot Gyro Teleop", group = "OmniBot")
 //@Disabled
 public class OmniBotGyroTeleop extends OpMode {
 
@@ -49,16 +49,16 @@ public class OmniBotGyroTeleop extends OpMode {
         }
 
         while (robot.gyro.getHeading() < direction) {
-            robot.motorFl.setPower(1);
-            robot.motorFr.setPower(-1);
-            robot.motorBl.setPower(1);
-            robot.motorBr.setPower(-1);
+            robot.motorFl.setPower(0.1);
+            robot.motorFr.setPower(-0.1);
+            robot.motorBl.setPower(0.1);
+            robot.motorBr.setPower(-0.1);
         }
         while (robot.gyro.getHeading() > direction) {
-            robot.motorFl.setPower(-1);
-            robot.motorFr.setPower(1);
-            robot.motorBl.setPower(-1);
-            robot.motorBr.setPower(1);
+            robot.motorFl.setPower(-0.1);
+            robot.motorFr.setPower(0.1);
+            robot.motorBl.setPower(-0.1);
+            robot.motorBr.setPower(0.1);
         }
 
         /*/sweeper code, Gamepad 1 controls sweeping in with right bumper

@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static com.qualcomm.robotcore.util.Range.clip;
+
 @TeleOp(name = "OmniBot Teleop", group = "OmniBot")
 //@Disabled
 public class OmniBotTeleop extends OpMode {
@@ -13,6 +15,11 @@ public class OmniBotTeleop extends OpMode {
     private HardwareOmniBot2 robot = new HardwareOmniBot2();
 
 	private double powerDivider = 1; //Divide power by this much
+
+    double Flpower;
+    double Frpower;
+    double Blpower;
+    double Brpower;
 
 	@Override
 	public void init() {
@@ -40,10 +47,20 @@ public class OmniBotTeleop extends OpMode {
 			powerDivider = 1;
 		}
 
-		robot.motorFl.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x /*/powerDivider*/);
-		robot.motorFr.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/);
-		robot.motorBl.setPower(-gamepad1.left_stick_y + -gamepad1.left_stick_x + gamepad1.right_stick_x /*/powerDivider*/);
-		robot.motorBr.setPower(-gamepad1.left_stick_y + gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/);
+        Flpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x /*/powerDivider*/;
+        Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/;
+        Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x /*/powerDivider*/;
+        Brpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/;
+
+        Flpower = clip(Flpower, -0.7, 0.7);
+        Frpower = clip(Frpower, -0.7, 0.7);
+        Blpower = clip(Blpower, -0.7, 0.7);
+        Brpower = clip(Brpower, -0.7, 0.7);
+
+		robot.motorFl.setPower(Flpower /*-gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x /powerDivider*/);
+		robot.motorFr.setPower(Frpower /*-gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x /powerDivider*/);
+		robot.motorBl.setPower(Blpower /*-gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x /powerDivider*/);
+		robot.motorBr.setPower(Brpower /*-gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x /powerDivider*/);
 
         /*/sweeper code, Gamepad 1 controls sweeping in with right bumper
 		if(gamepad1.right_bumper){
