@@ -43,7 +43,7 @@ public class OmniBotGyroTeleop extends OpMode {
 
 		case firstWhile:
 		if(robot.gyro.getHeading() < direction) {
-			i++
+			break;
 		}
             robot.motorFl.setPower(0.1);
             robot.motorFr.setPower(-0.1);
@@ -52,7 +52,7 @@ public class OmniBotGyroTeleop extends OpMode {
         
 		case secondWhile:
 		if(robot.gyro.getHeading() > direction) {
-			i++
+			break;
 		}
             robot.motorFl.setPower(-0.1);
             robot.motorFr.setPower(0.1);
