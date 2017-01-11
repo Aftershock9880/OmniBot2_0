@@ -40,14 +40,19 @@ public class HardwareOmniBot2 {
     public DcMotor motorBr    = null;
 
     public DcMotor conveyor   = null;
-    public DcMotor launcher   = null;
+
+    public DcMotor launcher1  = null;
+    public DcMotor launcher2  = null;
 
     public CRServo sweeper    = null;
-    public CRServo button     = null;
+    public CRServo button1    = null;
+    public CRServo button2    = null;
 
     public GyroSensor gyro    = null;
-    public ColorSensor color  = null;
     public LightSensor light  = null;
+
+    public ColorSensor color1 = null;
+    public ColorSensor color2 = null;
 
     //Local OpMode members
     HardwareMap hwMap         = null;
@@ -60,19 +65,24 @@ public class HardwareOmniBot2 {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-        motorFl =  hwMap.dcMotor.get("motor_1");  motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorFr =  hwMap.dcMotor.get("motor_2");
-        motorBl =  hwMap.dcMotor.get("motor_3");  motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBr =  hwMap.dcMotor.get("motor_4");
+        motorFl =   hwMap.dcMotor.get("motor_1");  motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorFr =   hwMap.dcMotor.get("motor_2");
+        motorBl =   hwMap.dcMotor.get("motor_3");  motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBr =   hwMap.dcMotor.get("motor_4");
 
-        //conveyor = hwMap.dcMotor.get("motor_5");  conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //launcher = hwMap.dcMotor.get("motor_6");
+        conveyor =  hwMap.dcMotor.get("motor_5");  conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //sweeper =  hwMap.crservo.get("servo_1");
-        button =   hwMap.crservo.get("servo_2");
+        launcher1 = hwMap.dcMotor.get("launch_1");
+        launcher2 = hwMap.dcMotor.get("launch_2"); launcher2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        gyro =     hwMap.gyroSensor.get("gyro_1");
-        //color =    hwMap.colorSensor.get("color_1");
-        //light =    hwMap.lightSensor.get("light_1");
+        sweeper =   hwMap.crservo.get("servo_1");
+        button1 =   hwMap.crservo.get("servo_2");
+        button2 =   hwMap.crservo.get("servo_3");
+
+        gyro =      hwMap.gyroSensor.get("gyro_1");
+        light =     hwMap.lightSensor.get("light_1");
+
+        color1 =    hwMap.colorSensor.get("color_1");
+        color2 =    hwMap.colorSensor.get("color_2");
     }
 }
