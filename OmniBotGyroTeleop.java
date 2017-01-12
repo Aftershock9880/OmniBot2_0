@@ -53,7 +53,7 @@ public class OmniBotGyroTeleop extends OpMode {
         */
 
         // movement code, Gamepad 1 controls movement with left stick and turning with right stick
-        if(powerDivider <= 1){
+        if (powerDivider <= 1) {
 			powerDivider = 1;
 		}
 
@@ -84,58 +84,60 @@ public class OmniBotGyroTeleop extends OpMode {
         //i =+ p;
         d = p - lastError;
         lastError = p;
-        double finalPD = p * kp + d * kd;
+        finalPD = p * kp + d * kd;
 
-        Flpower =+  finalPD;
-        Frpower =+ -finalPD;
-        Blpower =+  finalPD;
-        Brpower =+ -finalPD;
+        Flpower =+ finalPD;
+        Frpower =- finalPD;
+        Blpower =+ finalPD;
+        Brpower =- finalPD;
 
         robot.motorFl.setPower(Flpower);
         robot.motorFr.setPower(Frpower);
         robot.motorBl.setPower(Blpower);
         robot.motorBr.setPower(Brpower);
 
-        /*while (robot.gyro.getHeading() < direction) {
-            robot.motorFl.setPower(0.1);
-            robot.motorFr.setPower(-0.1);
-            robot.motorBl.setPower(0.1);
-            robot.motorBr.setPower(-0.1);
+        //sweeper code, Gamepad 1 controls sweeping in with Dpad down and sweeping out with Dpad up
+        if (gamepad2.dpad_left || gamepad2.dpad_right) {
+            robot.sweeper.setPower(0);
         }
-        while (robot.gyro.getHeading() > direction) {
-            robot.motorFl.setPower(-0.1);
-            robot.motorFr.setPower(0.1);
-            robot.motorBl.setPower(-0.1);
-            robot.motorBr.setPower(0.1);
-        }*/
-
-        /*/sweeper code, Gamepad 1 controls sweeping in with right bumper
-		if(gamepad1.right_bumper){
+        else if (gamepad2.dpad_down) {
             robot.sweeper.setPower(1);
 		}
-		else if(gamepad1.left_bumper){
+		else if (gamepad2.dpad_up) {
             robot.sweeper.setPower(-1);
         }
-        else {
-            robot.sweeper.setPower(0);
-        }*/
 
-        //button pusher code, Gamepad 1 controls extending with right bumper and retracting with left bumper
-        if(gamepad1.right_bumper) {
-            robot.button.setPower(1);
+        //left button pusher code, Gamepads 1 & 2 control extending with left bumper and retracting with left trigger
+        if (gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0) {
+            robot.button1.setPower(-1);
         }
-        else if (gamepad1.left_bumper || gamepad2.dpad_down){
-            robot.button.setPower(-1);
+        else if (gamepad1.left_bumper || gamepad2.left_bumper) {
+            robot.button1.setPower(1);
         }
         else {
-            robot.button.setPower(0);
+            robot.button1.setPower(0);
         }
 
-        //launcher code, Gamepad controls the conveyor and launcher wheels with b
-        if(gamepad2.b) {
-			robot.launcher.setPower(1);
+        //right button pusher code, Gamepads 1 & 2 control extending with right bumper and retracting with right trigger
+        if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
+            robot.button2.setPower(-1);
+        }
+        else if (gamepad1.right_bumper || gamepad2.right_bumper) {
+            robot.button2.setPower(1);
+        }
+        else {
+            robot.button2.setPower(0);
+        }
+
+        //launcher code, Gamepad 2 controls the conveyor and launcher wheels with y
+        if(gamepad2.y) {
+			robot.launcher1.setPower(1);
+            robot.launcher2.setPower(1);
             robot.conveyor.setPower(1);
 		}
+        if (gamepad2.b) {
+            robot.conveyor.setPower(1);
+        }
 
 		//Send telemetry data back to driver station.
 		telemetry.addData("left stick X: ", -gamepad1.left_stick_x);
@@ -143,7 +145,7 @@ public class OmniBotGyroTeleop extends OpMode {
         telemetry.addData("right stick Y: ", -gamepad1.right_stick_y);
 		telemetry.addData("power divider: ", powerDivider);
         telemetry.addData("gyro heading: ", robot.gyro.getHeading());
-
+        telemetry.addData(": ", 1);
         telemetry.addData("PD loop addition: ", finalPD);
 	}
 }

@@ -47,49 +47,66 @@ public class OmniBotTeleop extends OpMode {
 			powerDivider = 1;
 		}
 
-        Flpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x /*/powerDivider*/;
-        Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/;
-        Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x /*/powerDivider*/;
-        Brpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x /*/powerDivider*/;
+        Flpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x;
+        Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x;
+        Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x;
+        Brpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x;
 
         Flpower = clip(Flpower, -0.7, 0.7);
         Frpower = clip(Frpower, -0.7, 0.7);
         Blpower = clip(Blpower, -0.7, 0.7);
         Brpower = clip(Brpower, -0.7, 0.7);
 
-		robot.motorFl.setPower(Flpower /*-gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x /powerDivider*/);
-		robot.motorFr.setPower(Frpower /*-gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x /powerDivider*/);
-		robot.motorBl.setPower(Blpower /*-gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x /powerDivider*/);
-		robot.motorBr.setPower(Brpower /*-gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x /powerDivider*/);
+		robot.motorFl.setPower(Flpower /*powerDivider*/);
+		robot.motorFr.setPower(Frpower /*powerDivider*/);
+		robot.motorBl.setPower(Blpower /*powerDivider*/);
+		robot.motorBr.setPower(Brpower /*powerDivider*/);
 
-        /*/sweeper code, Gamepad 1 controls sweeping in with right bumper
-		if(gamepad1.right_bumper){
+        //sweeper code, Gamepad 1 controls sweeping in with right bumper
+        if (gamepad2.dpad_left || gamepad2.dpad_right) {
+            robot.sweeper.setPower(0);
+        }
+        else if (gamepad2.dpad_down) {
             robot.sweeper.setPower(1);
-		}
-		else if(gamepad1.left_bumper){
+        }
+        else if (gamepad2.dpad_up) {
             robot.sweeper.setPower(-1);
         }
-        else {
-            robot.sweeper.setPower(0);
-        }*/
 
         //button pusher code, Gamepad 1 controls extending with right bumper and retracting with left bumper
-        if(gamepad1.right_bumper) {
-            robot.button.setPower(1);
+        if (gamepad1.left_trigger > 0 || gamepad2.left_trigger > 0) {
+            robot.button1.setPower(-1);
         }
-        else if (gamepad1.left_bumper || gamepad2.dpad_down){
-            robot.button.setPower(-1);
+        else if (gamepad1.left_bumper || gamepad2.left_bumper) {
+            robot.button1.setPower(1);
         }
         else {
-            robot.button.setPower(0);
+            robot.button1.setPower(0);
+        }
+
+        if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
+            robot.button2.setPower(-1);
+        }
+        else if (gamepad1.right_bumper || gamepad2.right_bumper) {
+            robot.button2.setPower(1);
+        }
+        else {
+            robot.button2.setPower(0);
         }
 
         //launcher code, Gamepad controls the conveyor and launcher wheels with b
-        if(gamepad2.b) {
-			//robot.launcher.setPower(1);
-            //robot.conveyor.setPower(1);
+        if (gamepad2.y) {
+			robot.launcher1.setPower(1);
+            robot.launcher2.setPower(1);
+            robot.conveyor.setPower(1);
 		}
-
+        if (gamepad2.x) {
+            robot.conveyor.setPower(1);
+        }
+        if (gamepad2.b) {
+            robot.launcher1.setPower(1);
+            robot.launcher2.setPower(1);
+        }
 		//Send telemetry data back to driver station.
 		telemetry.addData("stick X: ", -gamepad1.left_stick_x);
 		telemetry.addData("stick Y: ", -gamepad1.left_stick_y);

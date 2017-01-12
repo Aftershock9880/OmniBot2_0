@@ -28,10 +28,10 @@ public class OmniBotBasicAutonomous extends OpMode {
     @Override
     public void loop() {
         if (runtime.time() < 3.5){
-        	robot.motorFl.setPower(1);
-        	robot.motorFr.setPower(1);
-        	robot.motorBl.setPower(1);
-        	robot.motorBr.setPower(1);
+        	robot.motorFl.setPower(0.7);
+        	robot.motorFr.setPower(0.7);
+        	robot.motorBl.setPower(0.7);
+        	robot.motorBr.setPower(0.7);
         }
         else {
             robot.motorFl.setPower(0);
