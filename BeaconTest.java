@@ -14,6 +14,18 @@ public class BeaconTest extends LinearOpMode {
     private ElapsedTime pressButtonT = new ElapsedTime();
     private ElapsedTime moveT = new ElapsedTime();
 
+    double kp = 1/300;
+    //double ki = 1/300;
+    double kd = 1/300;
+
+    double p = 0;
+    //double i = 0;
+    double d = 0;
+
+    double finalPD = 0;
+
+    double lastError = 0;
+
     @Override
     public final void runOpMode() {
 
@@ -39,25 +51,21 @@ public class BeaconTest extends LinearOpMode {
 
         moveUntil(-1,-1,-1,-1, moveT.time() > 2);
 
-        /*moveUntil(1,1,1,1, robot.light.getLightDetected() > 30);
+//------------------- for red -----------------------------------------------\\
+
+        turnTo(45);
+
+        moveUntil(1,1,1,1, robot.light.getLightDetected() > 60);
 
         //check if the beacon is red
-        if (robot.color.red() > robot.color.blue()) {
-            telemetry.addData("Button Color: ", "Red");
-            pressButton(0.5);
+        if (robot.color.red() > 150 && robot.color.blue() < 100) {
+            telemetry.addData("Left Button Color: ", "Red");
+            pressLeftButton(0.5);
         }
-        //move right for 0.2 seconds
         else {
-            telemetry.addData("Button Color: ", "Blue");
-            moveFor(1,-1,-1,1, 0.2);
+            telemetry.addData("Left Button Color: ", "Blue");
+            pressRightButton(0.5);
         }
-        telemetry.update();
-
-        //check if the beacon is red
-        if (robot.color.red() > robot.color.blue()) {
-            telemetry.addData("Button Color: ", "Red");
-            pressButton(0.5);
-        }*/
     }
 
     void pressButton(double extendTime) {
@@ -135,6 +143,26 @@ public class BeaconTest extends LinearOpMode {
         robot.motorFr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motorBl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motorBr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        telemetry.addData("Status: ", "Doing Nothing");
+        telemetry.update();
+    }
+
+    void turnTo(double direction) {
+        telemetry.addData("Status: ", "Turning");
+
+        while (robot.gyro.getHeading() != direction && opModeIsActive()) {
+            p = robot.gyro.getHeading() - direction;
+            //i =+ p;
+            d = p - lastError;
+            lastError = p;
+            double finalPD = p * kp + d * kd;
+
+            robot.motorFl.setPower( finalPD);
+            robot.motorFr.setPower(-finalPD);
+            robot.motorBl.setPower( finalPD);
+            robot.motorBr.setPower(-finalPD);
+        }
 
         telemetry.addData("Status: ", "Doing Nothing");
         telemetry.update();
