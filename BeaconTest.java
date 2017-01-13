@@ -34,40 +34,40 @@ public class BeaconTest extends LinearOpMode {
         //moveFor(1,1,1,1, 2);
         //moveFor(-1,-1,-1,-1, 2);
 
-        moveTo(2,2,2,2);
+        //moveTo(2,2,2,2);
 
-        moveFor(-1,-1,-1,-1, 1);
+        //moveFor(-1,-1,-1,-1, 1);
 
-        moveUntil(1,1,1,1, moveT.time() > 2);
+        //moveUntil(1,1,1,1, moveT.time() > 2);
 
-        pressLeftButton(3);
+        //pressLeftButton(3);
 
-        pressRightButton(3);
+        //pressRightButton(3);
 
         waitForStart();
         telemetry.addData("Status: ", "starting");
 
         moveTo(-2,-2,-2,-2);
 
-        moveFor(1,1,1,1, 1);
+        //moveFor(1,1,1,1, 1);
 
-        moveUntil(-1,-1,-1,-1, moveT.time() > 2);
+        //moveUntil(-1,-1,-1,-1, moveT.time() > 2);
 
 //------------------- for red -----------------------------------------------\\
 
-        turnTo(45);
-
-        moveUntil(1,1,1,1, robot.light.getLightDetected() > 60);
-
-        //check if the beacon is red
-        if (robot.lColor.red() > 150 && robot.lColor.blue() < 100) {
-            telemetry.addData("Left Button Color: ", "Red");
-            pressLeftButton(0.5);
-        }
-        else {
-            telemetry.addData("Left Button Color: ", "Blue");
-            pressRightButton(0.5);
-        }
+        //turnTo(45);
+        //
+        //moveUntil(1,1,1,1, robot.light.getLightDetected() > 60);
+        //
+        ////check if the beacon is red
+        //if (robot.lColor.red() > 150 && robot.lColor.blue() < 100) {
+        //    telemetry.addData("Left Button Color: ", "Red");
+        //    pressLeftButton(0.5);
+        //}
+        //else {
+        //    telemetry.addData("Left Button Color: ", "Blue");
+        //    pressRightButton(0.5);
+        //}
     }
 
     void pressLeftButton(double extendTime) {
@@ -138,16 +138,21 @@ public class BeaconTest extends LinearOpMode {
         robot.motorBl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorBr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.motorFl.setTargetPosition(robot.motorFl.getCurrentPosition() + (int)Math.round(FlEnc * 1680));
-        robot.motorFr.setTargetPosition(robot.motorFr.getCurrentPosition() + (int)Math.round(FrEnc * 1680));
-        robot.motorBl.setTargetPosition(robot.motorBl.getCurrentPosition() + (int)Math.round(BlEnc * 1680));
-        robot.motorBr.setTargetPosition(robot.motorBr.getCurrentPosition() + (int)Math.round(BrEnc * 1680));
+        robot.motorFl.setTargetPosition(robot.motorFl.getCurrentPosition() + (int)Math.round(FlEnc * 560));
+        robot.motorFr.setTargetPosition(robot.motorFr.getCurrentPosition() + (int)Math.round(FrEnc * 560));
+        robot.motorBl.setTargetPosition(robot.motorBl.getCurrentPosition() + (int)Math.round(BlEnc * 560));
+        robot.motorBr.setTargetPosition(robot.motorBr.getCurrentPosition() + (int)Math.round(BrEnc * 560));
+
+        robot.motorFl.setPower(0.1);
+        robot.motorFr.setPower(0.1);
+        robot.motorBl.setPower(0.1);
+        robot.motorBr.setPower(0.1);
 
         while (robot.motorFl.isBusy()&& robot.motorFr.isBusy()&& robot.motorBl.isBusy()&& robot.motorBr.isBusy()&& opModeIsActive()) {
-            robot.motorFl.setPower(0.5);
-            robot.motorFr.setPower(0.5);
-            robot.motorBl.setPower(0.5);
-            robot.motorBr.setPower(0.5);
+            telemetry.addData("Front Left Encoder: ",  robot.motorFl.getCurrentPosition());
+            telemetry.addData("Front Right Encoder: ", robot.motorFr.getCurrentPosition());
+            telemetry.addData("Back Left Encoder: ",   robot.motorBl.getCurrentPosition());
+            telemetry.addData("Back Right Encoder: ",  robot.motorBr.getCurrentPosition());
         }
 
         robot.motorFl.setPower(0);

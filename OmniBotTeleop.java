@@ -62,7 +62,7 @@ public class OmniBotTeleop extends OpMode {
 		robot.motorBl.setPower(Blpower /*powerDivider*/);
 		robot.motorBr.setPower(Brpower /*powerDivider*/);
 
-        //sweeper code, Gamepad 1 controls sweeping in with right bumper
+        //sweeper code, Gamepad 1 controls sweeping in with dpad
         if (gamepad2.dpad_left || gamepad2.dpad_right) {
             robot.sweeper.setPower(0);
         }
@@ -106,6 +106,9 @@ public class OmniBotTeleop extends OpMode {
         if (gamepad2.b) {
             robot.launcher1.setPower(1);
             robot.launcher2.setPower(1);
+        }
+        if (gamepad2.a) {
+            robot.sweeper.setPower(1);
         }
 		//Send telemetry data back to driver station.
 		telemetry.addData("stick X: ", -gamepad1.left_stick_x);
