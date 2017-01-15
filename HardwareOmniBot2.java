@@ -69,13 +69,13 @@ public class HardwareOmniBot2 {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
-        motorFl =   hwMap.dcMotor.get("motor_1");  motorFl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorFr =   hwMap.dcMotor.get("motor_2");
-        motorBl =   hwMap.dcMotor.get("motor_3");  motorBl.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBr =   hwMap.dcMotor.get("motor_4");
+        motorFl =   hwMap.dcMotor.get("motor_1");
+        motorFr =   hwMap.dcMotor.get("motor_2");  motorFr.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBl =   hwMap.dcMotor.get("motor_3");
+        motorBr =   hwMap.dcMotor.get("motor_4");  motorBr.setDirection(DcMotorSimple.Direction.REVERSE);
 
         sweeper =   hwMap.dcMotor.get("motor_5");
-        conveyor =  hwMap.dcMotor.get("motor_6");  conveyor.setDirection(DcMotorSimple.Direction.REVERSE);
+        conveyor =  hwMap.dcMotor.get("motor_6");
 
         launcher1 = hwMap.dcMotor.get("launch_1");
         launcher2 = hwMap.dcMotor.get("launch_2");

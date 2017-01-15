@@ -84,6 +84,7 @@ public class OmniBotTeleop extends OpMode {
             robot.button1.setPower(0);
         }
 
+        //right button pusher code, Gamepads 1 & 2 control extending with right bumper and retracting with right trigger
         if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
             robot.button2.setPower(-1);
         }
@@ -100,15 +101,17 @@ public class OmniBotTeleop extends OpMode {
             robot.launcher2.setPower(1);
             robot.conveyor.setPower(1);
 		}
-        if (gamepad2.x) {
+        if (gamepad2.b) {
             robot.conveyor.setPower(1);
         }
-        if (gamepad2.b) {
+        if (gamepad2.x) {
             robot.launcher1.setPower(1);
             robot.launcher2.setPower(1);
         }
         if (gamepad2.a) {
-            robot.sweeper.setPower(1);
+            robot.launcher1.setPower(0);
+            robot.launcher2.setPower(0);
+            robot.conveyor.setPower(0);
         }
 		//Send telemetry data back to driver station.
 		telemetry.addData("stick X: ", -gamepad1.left_stick_x);

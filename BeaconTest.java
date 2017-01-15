@@ -2,11 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "OmniBot Beacon Test", group = "OmniBot")
-//@Disabled
+@Disabled
 public class BeaconTest extends LinearOpMode {
 
     private HardwareOmniBot2 robot = new HardwareOmniBot2();
@@ -55,10 +56,10 @@ public class BeaconTest extends LinearOpMode {
 
 //------------------- for red -----------------------------------------------\\
 
-        //turnTo(45);
-        //
+        turnTo(45);
+
         //moveUntil(1,1,1,1, robot.light.getLightDetected() > 60);
-        //
+
         ////check if the beacon is red
         //if (robot.lColor.red() > 150 && robot.lColor.blue() < 100) {
         //    telemetry.addData("Left Button Color: ", "Red");
@@ -150,9 +151,11 @@ public class BeaconTest extends LinearOpMode {
 
         while (robot.motorFl.isBusy()&& robot.motorFr.isBusy()&& robot.motorBl.isBusy()&& robot.motorBr.isBusy()&& opModeIsActive()) {
             telemetry.addData("Front Left Encoder: ",  robot.motorFl.getCurrentPosition());
+            telemetry.addData("Front Left Target: ",   robot.motorFl.getTargetPosition());
             telemetry.addData("Front Right Encoder: ", robot.motorFr.getCurrentPosition());
             telemetry.addData("Back Left Encoder: ",   robot.motorBl.getCurrentPosition());
             telemetry.addData("Back Right Encoder: ",  robot.motorBr.getCurrentPosition());
+            telemetry.update();
         }
 
         robot.motorFl.setPower(0);
@@ -179,10 +182,10 @@ public class BeaconTest extends LinearOpMode {
             lastError = p;
             double finalPD = p * kp + d * kd;
 
-            robot.motorFl.setPower( finalPD);
-            robot.motorFr.setPower(-finalPD);
-            robot.motorBl.setPower( finalPD);
-            robot.motorBr.setPower(-finalPD);
+            robot.motorFl.setPower(-finalPD);
+            robot.motorFr.setPower( finalPD);
+            robot.motorBl.setPower(-finalPD);
+            robot.motorBr.setPower( finalPD);
         }
 
         telemetry.addData("Status: ", "Doing Nothing");

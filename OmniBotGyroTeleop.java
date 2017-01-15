@@ -2,18 +2,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import static com.qualcomm.robotcore.util.Range.clip;
 
 @TeleOp(name = "OmniBot Gyro Teleop", group = "OmniBot")
-//@Disabled
+@Disabled
 public class OmniBotGyroTeleop extends OpMode {
 
     private HardwareOmniBot2 robot = new HardwareOmniBot2();
 
 	private double powerDivider = 1; //Divide power by this much
 
-    int direction;
+    int direction = 0;
     double lastError = 0;
 
     double Flpower;
@@ -57,19 +58,10 @@ public class OmniBotGyroTeleop extends OpMode {
 			powerDivider = 1;
 		}
 
-        if (gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x < -0.001) {
-            Flpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x;
-            Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x;
-            Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x;
-            Brpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x;
-            direction = robot.gyro.getHeading();
-        }
-        else {
-            Flpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x;
-            Frpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
-            Blpower = -gamepad1.left_stick_y + -gamepad1.left_stick_x;
-            Brpower = -gamepad1.left_stick_y +  gamepad1.left_stick_x;
-        }
+        Flpower =+ -gamepad1.left_stick_y +  gamepad1.left_stick_x +  gamepad1.right_stick_x;
+        Frpower =+ -gamepad1.left_stick_y + -gamepad1.left_stick_x + -gamepad1.right_stick_x;
+        Blpower =+ -gamepad1.left_stick_y + -gamepad1.left_stick_x +  gamepad1.right_stick_x;
+        Brpower =+ -gamepad1.left_stick_y +  gamepad1.left_stick_x + -gamepad1.right_stick_x;
 
         Flpower = clip(Flpower, -0.7, 0.7);
         Frpower = clip(Frpower, -0.7, 0.7);
@@ -87,14 +79,18 @@ public class OmniBotGyroTeleop extends OpMode {
         finalPD = p * kp + d * kd;
 
         Flpower =+ finalPD;
-        Frpower =- finalPD;
+        Frpower =+ -finalPD;
         Blpower =+ finalPD;
-        Brpower =- finalPD;
+        Brpower =+ -finalPD;
 
         robot.motorFl.setPower(Flpower);
         robot.motorFr.setPower(Frpower);
         robot.motorBl.setPower(Blpower);
         robot.motorBr.setPower(Brpower);
+
+        if (gamepad1.right_stick_x > 0.001 || gamepad1.right_stick_x < -0.001) {
+            direction = robot.gyro.getHeading();
+        }
 
         //sweeper code, Gamepad 1 controls sweeping in with Dpad down and sweeping out with Dpad up
         if (gamepad2.dpad_left || gamepad2.dpad_right) {
@@ -137,6 +133,15 @@ public class OmniBotGyroTeleop extends OpMode {
 		}
         if (gamepad2.b) {
             robot.conveyor.setPower(1);
+        }
+        if (gamepad2.x) {
+            robot.launcher1.setPower(1);
+            robot.launcher2.setPower(1);
+        }
+        if (gamepad2.a) {
+            robot.launcher1.setPower(0);
+            robot.launcher2.setPower(0);
+            robot.conveyor.setPower(0);
         }
 
 		//Send telemetry data back to driver station.
