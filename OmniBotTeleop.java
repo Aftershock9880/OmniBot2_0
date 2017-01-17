@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.OmniBot2_0;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -85,15 +85,15 @@ public class OmniBotTeleop extends OpMode {
         }
 
         //right button pusher code, Gamepads 1 & 2 control extending with right bumper and retracting with right trigger
-        if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
-            robot.button2.setPower(-1);
-        }
-        else if (gamepad1.right_bumper || gamepad2.right_bumper) {
-            robot.button2.setPower(1);
-        }
-        else {
-            robot.button2.setPower(0);
-        }
+        //if (gamepad1.right_trigger > 0 || gamepad2.right_trigger > 0) {
+        //    robot.button2.setPower(-1);
+        //}
+        //else if (gamepad1.right_bumper || gamepad2.right_bumper) {
+        //    robot.button2.setPower(1);
+        //}
+        //else {
+        //    robot.button2.setPower(0);
+        //}
 
         //launcher code, Gamepad controls the conveyor and launcher wheels with b
         if (gamepad2.y) {
