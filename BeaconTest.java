@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "OmniBot Beacon Test", group = "OmniBot")
+@Autonomous(name = "OmniBot 2.0 Beacon Test", group = "OmniBot 2.0")
 @Disabled
 public class BeaconTest extends LinearOpMode {
 
